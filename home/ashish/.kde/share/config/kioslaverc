@@ -1,0 +1,5 @@
+[Proxy Settings]
+AuthMode=0
+ProxyType=1
+ReversedException=false
+httpProxy=http://hproxy.iitm.ac.in:3128

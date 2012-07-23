@@ -1,0 +1,4 @@
+##### ranjanashish: Debian Configuration Files Ignore List #####
+
+# ignore standard stuff
+*~

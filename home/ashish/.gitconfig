@@ -1,0 +1,13 @@
+[user]
+        name = Ashish Ranjan
+        email = hi.ashish26@gmail.com
+[core]
+        editor = vim
+[merge]
+        tool = vimdiff
+[giggle]
+        main-window-maximized = true
+        main-window-geometry = 461x281+0+48
+        history-view-vpane-position = 416
+        main-window-view = HistoryView
+        file-view-vpane-position = 655
