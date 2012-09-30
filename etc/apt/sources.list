@@ -16,5 +16,8 @@ deb-src http://security.debian.org wheezy/updates main contrib non-free
 deb http://mozilla.debian.net/ experimental iceweasel-aurora
 # Dropbox
 deb http://linux.dropbox.com/debian wheezy main
+# Cloudera's Distribution for Hadoop (CDH)
+deb http://archive.cloudera.com/debian squeeze-cdh3 contrib
+deb-src http://archive.cloudera.com/debian squeeze-cdh3 contrib
 # Oracle JRE
 deb http://www.duinsoft.nl/pkg debs all
