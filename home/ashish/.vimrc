@@ -1,43 +1,11 @@
 """"" ranjanashish : Path to this configuration file is ~/.vimrc """""
 
-python from powerline.bindings.vim import source_plugin; source_plugin()
-
-" VUNDLE
-""""""""
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'https://github.com/gmarik/vundle'
-" look and feel
-Bundle 'https://github.com/flazz/vim-colorschemes'
-" programming
-Bundle 'https://github.com/tpope/vim-fugitive'
-Bundle 'https://github.com/rstacruz/sparkup', {'rtp': 'vim/'}
-" syntax
-Bundle 'https://github.com/vim-scripts/Arduino-syntax-file'
-" utility
-Bundle 'https://github.com/vim-scripts/Align'
-Bundle 'https://github.com/Lokaltog/vim-easymotion'
-Bundle 'https://github.com/wincent/Command-T'
-filetype plugin indent on 
-
-" AUTOCOMMAND
-"""""""""""""
-" automatically cd into the directory that the file is in
-autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
-" automatically do the syntax highlighting for arudino commands
-autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
-
-" COLORSCHEME
-"""""""""""""
-colorscheme molokai
-
 " SET
 """""
 " general
+set nocompatible   " MUST BE FIRST LINE!!! Vi IMproved
 set autoindent
 set encoding=utf-8 " use UTF-8
-set nocompatible   " IMproved Vi
 set scrolloff=999  " minimal number of screen lines to keep above and below the cursor
 set showcmd        " display incomplete commands
 set visualbell     " error bells are displayed visually
@@ -58,6 +26,55 @@ set t_Co=256              " REQUIRED!!! by powerline
 " SYNTAX
 """"""""
 syntax on " enable syntax highlighting.
+
+" AUTOCOMMAND
+"""""""""""""
+" automatically cd into the directory that the file is in
+autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
+" automatically do the syntax highlighting for arudino commands
+autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
+
+" GVIM
+""""""
+if has('gui_running')
+    set guifont=Monospace\ 10 " font and font-size
+    set lines=999 columns=999 " maximize initial gvim window
+endif
+
+" CROSS-PLATFORM
+""""""""""""""""
+if has('win32') || has('win64')
+    set rtp=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+endif
+
+" POWERLINE
+"""""""""""
+set rtp+=~/.local/lib/python2.7/site-packages/powerline/bindings/vim
+
+" VUNDLE
+""""""""
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'https://github.com/gmarik/vundle'
+" look and feel
+Bundle 'https://github.com/tomasr/molokai'
+" programming
+Bundle 'https://github.com/tpope/vim-fugitive'
+Bundle 'https://github.com/rstacruz/sparkup', {'rtp': 'vim/'}
+" syntax
+Bundle 'https://github.com/vim-scripts/Arduino-syntax-file'
+" utility
+Bundle 'https://github.com/Raimondi/delimitMate'
+Bundle 'https://github.com/vim-scripts/Align'
+Bundle 'https://github.com/Lokaltog/vim-easymotion'
+Bundle 'https://github.com/wincent/Command-T'
+Bundle 'https://github.com/fholgado/minibufexpl.vim'
+filetype plugin indent on 
+
+" COLORSCHEME
+"""""""""""""
+colorscheme molokai
 
 let g:tex_flavor='latex'
 
