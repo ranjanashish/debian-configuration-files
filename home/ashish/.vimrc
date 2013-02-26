@@ -60,6 +60,8 @@ Bundle 'https://github.com/gmarik/vundle'
 " look and feel
 Bundle 'https://github.com/tomasr/molokai'
 " programming
+Bundle 'https://github.com/msanders/snipmate.vim'
+Bundle 'https://github.com/scrooloose/nerdcommenter'
 Bundle 'https://github.com/tpope/vim-fugitive'
 Bundle 'https://github.com/rstacruz/sparkup', {'rtp': 'vim/'}
 " syntax
@@ -70,11 +72,16 @@ Bundle 'https://github.com/vim-scripts/Align'
 Bundle 'https://github.com/Lokaltog/vim-easymotion'
 Bundle 'https://github.com/wincent/Command-T'
 Bundle 'https://github.com/fholgado/minibufexpl.vim'
+Bundle 'https://github.com/scrooloose/nerdtree'
 filetype plugin indent on 
 
 " COLORSCHEME
 """""""""""""
 colorscheme molokai
+
+" MAP
+"""""
+map <C-n> :NERDTreeToggle<CR>
 
 let g:tex_flavor='latex'
 
