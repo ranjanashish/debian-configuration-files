@@ -1,15 +1,16 @@
 """"" ranjanashish : Path to this configuration file is ~/.vimrc """""
 
-" SET
-"""""
+" SETTING
+"""""""""
 " general
-set nocompatible   " MUST BE FIRST LINE!!! Vi IMproved
+set nocompatible      " MUST BE FIRST LINE!!! Vi IMproved
 set autoindent
-set encoding=utf-8 " use UTF-8
-set scrolloff=999  " minimal number of screen lines to keep above and below the cursor
-set showcmd        " display incomplete commands
-set visualbell     " error bells are displayed visually
-set wildmenu       " show autocomplete menus
+set encoding=utf-8    " use UTF-8
+set scrolloff=999     " minimal number of screen lines to keep above and below the cursor
+set showcmd           " display incomplete commands
+set visualbell        " error bells are displayed visually
+set wildmenu          " show autocomplete menus
+set tags=./tags;$HOME " look in the current directory for 'tags', and work up the tree towards $HOME until one is found
 " search
 set ignorecase " ignore case when searching
 set incsearch  " search as you type
@@ -62,7 +63,10 @@ Bundle 'https://github.com/tomasr/molokai'
 " programming
 Bundle 'https://github.com/msanders/snipmate.vim'
 Bundle 'https://github.com/scrooloose/nerdcommenter'
+Bundle 'https://github.com/scrooloose/syntastic'
+Bundle 'https://github.com/majutsushi/tagbar'
 Bundle 'https://github.com/tpope/vim-fugitive'
+Bundle 'https://github.com/gregsexton/gitv'
 Bundle 'https://github.com/rstacruz/sparkup', {'rtp': 'vim/'}
 " syntax
 Bundle 'https://github.com/vim-scripts/Arduino-syntax-file'
@@ -73,15 +77,19 @@ Bundle 'https://github.com/Lokaltog/vim-easymotion'
 Bundle 'https://github.com/wincent/Command-T'
 Bundle 'https://github.com/fholgado/minibufexpl.vim'
 Bundle 'https://github.com/scrooloose/nerdtree'
+Bundle 'https://github.com/kien/ctrlp.vim'
 filetype plugin indent on 
 
 " COLORSCHEME
 """""""""""""
 colorscheme molokai
 
+" GLOBAL VARIABLE
+"""""""""""""""""
+let g:tex_flavor='latex'
+
 " MAP
 """""
-map <C-n> :NERDTreeToggle<CR>
-
-let g:tex_flavor='latex'
+nmap <C-n> : NERDTreeToggle<CR>
+nmap <F8>  : TagbarToggle<CR>
 
