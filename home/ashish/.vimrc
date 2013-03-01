@@ -1,7 +1,7 @@
 """"" ranjanashish : Path to this configuration file is ~/.vimrc """""
 
-" SETTING
-"""""""""
+" GLOBAL SETTING
+""""""""""""""""
 " general
 set nocompatible      " MUST BE FIRST LINE!!! Vi IMproved
 set autoindent
@@ -30,10 +30,16 @@ syntax on " enable syntax highlighting.
 
 " AUTOCOMMAND
 """""""""""""
+" autocmd {event} {pattern} {cmd}
+"""""""""""""""""""""""""""""""""
 " automatically cd into the directory that the file is in
 autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
+" automatically set the format program 'astyle' for formatting C/C++/C#/Java code
+autocmd BufNewFile,BufRead *.h,*.c,*.hpp,*.cpp,*.cs,*.java set formatprg=astyle\ -ap
+" automatically set the format program 'tidy' for formatting HTML code
+autocmd BufNewFile,BufRead *.htm,*.html set formatprg=tidy
 " automatically do the syntax highlighting for arudino commands
-autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
+autocmd BufNewFile,BufRead *.ino setlocal filetype=arduino
 
 " GVIM
 """"""
@@ -62,6 +68,7 @@ Bundle 'https://github.com/gmarik/vundle'
 Bundle 'https://github.com/tomasr/molokai'
 " programming
 Bundle 'https://github.com/msanders/snipmate.vim'
+Bundle 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Bundle 'https://github.com/scrooloose/nerdcommenter'
 Bundle 'https://github.com/scrooloose/syntastic'
 Bundle 'https://github.com/majutsushi/tagbar'
@@ -84,8 +91,15 @@ filetype plugin indent on
 """""""""""""
 colorscheme molokai
 
+" ALL VARIABLE
+""""""""""""""
+let mapleader=","
+
 " GLOBAL VARIABLE
 """""""""""""""""
+" DoxygenToolkit
+let g:DoxygenToolkit_authorName="Ashish Ranjan (Jalan)"
+" vim-latexsuite
 let g:tex_flavor='latex'
 
 " MAP
