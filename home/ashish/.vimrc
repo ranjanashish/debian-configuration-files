@@ -4,12 +4,17 @@
 """"""""""""""""
 " general
 set nocompatible      " MUST BE FIRST LINE!!! Vi IMproved
-set autoindent
+set autoindent        " 
+set cursorline        " highlight current line
 set encoding=utf-8    " use UTF-8
-set scrolloff=999     " minimal number of screen lines to keep above and below the cursor
+set lazyredraw        " 
+set nobackup          " 
+set noswapfile        " 
+set scrolloff=3       " minimal number of screen lines to keep above and below the cursor
 set showcmd           " display incomplete commands
 set visualbell        " error bells are displayed visually
 set wildmenu          " show autocomplete menus
+set wildignore=*.o,*~ " 
 set tags=./tags;$HOME " look in the current directory for 'tags', and work up the tree towards $HOME until one is found
 " search
 set ignorecase " ignore case when searching
@@ -32,10 +37,8 @@ syntax on " enable syntax highlighting.
 """""""""""""
 " autocmd {event} {pattern} {cmd}
 """""""""""""""""""""""""""""""""
-" automatically cd into the directory that the file is in
-autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
 " automatically set the format program 'astyle' for formatting C/C++/C#/Java code
-autocmd BufNewFile,BufRead *.h,*.c,*.hpp,*.cpp,*.cs,*.java set formatprg=astyle\ -ap
+autocmd BufNewFile,BufRead *.h,*.c,*.hpp,*.cpp,*.cs,*.java set formatprg=astyle\ --style=java\ --unpad-paren\ --pad-oper\ --pad-header
 " automatically set the format program 'tidy' for formatting HTML code
 autocmd BufNewFile,BufRead *.htm,*.html set formatprg=tidy
 " automatically do the syntax highlighting for arudino commands
@@ -44,8 +47,8 @@ autocmd BufNewFile,BufRead *.ino setlocal filetype=arduino
 " GVIM
 """"""
 if has('gui_running')
-    set guifont=Monospace\ 10 " font and font-size
-    set lines=999 columns=999 " maximize initial gvim window
+    set guifont=Monaco\ Regular\ 11 " font and font-size
+    set guioptions=aivc
 endif
 
 " CROSS-PLATFORM
@@ -82,7 +85,6 @@ Bundle 'https://github.com/Raimondi/delimitMate'
 Bundle 'https://github.com/vim-scripts/Align'
 Bundle 'https://github.com/Lokaltog/vim-easymotion'
 Bundle 'https://github.com/wincent/Command-T'
-Bundle 'https://github.com/fholgado/minibufexpl.vim'
 Bundle 'https://github.com/scrooloose/nerdtree'
 Bundle 'https://github.com/kien/ctrlp.vim'
 filetype plugin indent on 
@@ -104,6 +106,9 @@ let g:tex_flavor='latex'
 
 " MAP
 """""
-nmap <C-n> : NERDTreeToggle<CR>
-nmap <F8>  : TagbarToggle<CR>
+nmap <C-n>         : NERDTreeToggle<CR>
+nmap <F8>          : TagbarToggle<CR>
+nnoremap <C-t>     : tabnew<CR>
+nnoremap <C-Tab>   : tabnext<CR>
+nnoremap <C-S-Tab> : tabprev<CR>
 
