@@ -10,6 +10,7 @@ set encoding=utf-8    " use UTF-8
 set lazyredraw        " 
 set nobackup          " 
 set noswapfile        " 
+set pastetoggle=<F10> " 
 set scrolloff=3       " minimal number of screen lines to keep above and below the cursor
 set showcmd           " display incomplete commands
 set visualbell        " error bells are displayed visually
@@ -87,6 +88,7 @@ Bundle 'https://github.com/Lokaltog/vim-easymotion'
 Bundle 'https://github.com/wincent/Command-T'
 Bundle 'https://github.com/scrooloose/nerdtree'
 Bundle 'https://github.com/kien/ctrlp.vim'
+Bundle 'https://github.com/sjl/gundo.vim'
 filetype plugin indent on 
 
 " COLORSCHEME
@@ -106,9 +108,12 @@ let g:tex_flavor='latex'
 
 " MAP
 """""
-nmap <C-n>         : NERDTreeToggle<CR>
-nmap <F8>          : TagbarToggle<CR>
-nnoremap <C-t>     : tabnew<CR>
-nnoremap <C-Tab>   : tabnext<CR>
-nnoremap <C-S-Tab> : tabprev<CR>
-
+nmap <silent> <leader>ev :e $HOME/.vimrc<CR>
+nmap <silent> <leader>sv :so $HOME/.vimrc<CR>
+nnoremap <leader>g       :GundoToggle<CR>
+nnoremap <C-t>           :tabnew<CR>
+nnoremap <C-Tab>         :tabnext<CR>
+nnoremap <C-S-Tab>       :tabprev<CR>
+nmap <C-n>               :NERDTreeToggle<CR>
+nmap <F8>                :TagbarToggle<CR>
+ 
