@@ -39,7 +39,8 @@ syntax on " enable syntax highlighting.
 " autocmd {event} {pattern} {cmd}
 """""""""""""""""""""""""""""""""
 " automatically set the format program 'astyle' for formatting C/C++/C#/Java code
-autocmd BufNewFile,BufRead *.h,*.c,*.hpp,*.cpp,*.cs,*.java set formatprg=astyle\ --style=java\ --unpad-paren\ --pad-oper\ --pad-header
+autocmd BufNewFile,BufRead *.h,*.c,*.hpp,*.cpp,*.cs set formatprg=astyle\ --style=allman\ --unpad-paren\ --pad-oper\ --pad-header
+autocmd BufNewFile,BufRead *.java set formatprg=astyle\ --style=java\ --unpad-paren\ --pad-oper\ --pad-header
 " automatically set the format program 'tidy' for formatting HTML code
 autocmd BufNewFile,BufRead *.htm,*.html set formatprg=tidy
 " automatically do the syntax highlighting for arudino commands
@@ -71,6 +72,8 @@ Bundle 'https://github.com/gmarik/vundle'
 " look and feel
 Bundle 'https://github.com/tomasr/molokai'
 " programming
+Bundle 'https://github.com/Shougo/neocomplcache'
+Bundle 'https://github.com/Rip-Rip/clang_complete'
 Bundle 'https://github.com/msanders/snipmate.vim'
 Bundle 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Bundle 'https://github.com/scrooloose/nerdcommenter'
@@ -85,7 +88,6 @@ Bundle 'https://github.com/vim-scripts/Arduino-syntax-file'
 Bundle 'https://github.com/Raimondi/delimitMate'
 Bundle 'https://github.com/vim-scripts/Align'
 Bundle 'https://github.com/Lokaltog/vim-easymotion'
-Bundle 'https://github.com/wincent/Command-T'
 Bundle 'https://github.com/scrooloose/nerdtree'
 Bundle 'https://github.com/kien/ctrlp.vim'
 Bundle 'https://github.com/sjl/gundo.vim'
@@ -101,19 +103,32 @@ let mapleader=","
 
 " GLOBAL VARIABLE
 """""""""""""""""
-" DoxygenToolkit
-let g:DoxygenToolkit_authorName="Ashish Ranjan (Jalan)"
+" clang_complete
+let g:clang_use_library      = 1 " instead of calling the 'clang/clang++' tool use 'libclang' directly
+let g:clang_auto_select      = 0 " select nothing from the popup menu
+let g:clang_complete_auto    = 0
+let g:clang_complete_copen   = 1 " open quickfix window on error
+" neocomplcache
+let g:neocomplcache_enable_at_startup            = 1
+let g:neocomplcache_enable_smart_case            = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion   = 1
+let g:neocomplcache_min_syntax_length            = 2
 " vim-latexsuite
 let g:tex_flavor='latex'
+" DoxygenToolkit
+let g:DoxygenToolkit_authorName = "Ashish Ranjan (Jalan)"
+" snipmate
+let g:snips_author              = "Ashish Ranjan (Jalan)"
 
 " MAP
 """""
-nmap <silent> <leader>ev :e $HOME/.vimrc<CR>
-nmap <silent> <leader>sv :so $HOME/.vimrc<CR>
-nnoremap <leader>g       :GundoToggle<CR>
-nnoremap <C-t>           :tabnew<CR>
-nnoremap <C-Tab>         :tabnext<CR>
-nnoremap <C-S-Tab>       :tabprev<CR>
-nmap <C-n>               :NERDTreeToggle<CR>
-nmap <F8>                :TagbarToggle<CR>
+nmap <silent> <leader>ev : e $HOME/.vimrc<CR>
+nmap <silent> <leader>sv : so $HOME/.vimrc<CR>
+nnoremap <leader>g       : GundoToggle<CR>
+nnoremap <leader>n       : NERDTreeToggle<CR>
+nnoremap <leader>t       : TagbarToggle<CR>
+nnoremap <C-t>           : tabnew<CR>
+nnoremap <C-Tab>         : tabnext<CR>
+nnoremap <C-S-Tab>       : tabprev<CR>
  
