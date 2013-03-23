@@ -2,8 +2,19 @@
 
 # OFFICIAL
 ##########
+# Testing
+deb http://ftp.iitm.ac.in/debian testing main contrib non-free
+deb-src http://ftp.iitm.ac.in/debian testing main contrib non-free
 deb http://ftp.us.debian.org/debian testing main contrib non-free
 deb-src http://ftp.us.debian.org/debian testing main contrib non-free
+# Unstable
+deb http://ftp.iitm.ac.in/debian unstable main contrib non-free
+deb-src http://ftp.iitm.ac.in/debian unstable main contrib non-free
+deb http://ftp.us.debian.org/debian unstable main contrib non-free
+deb-src http://ftp.us.debian.org/debian unstable main contrib non-free
+# Experimental
+deb http://ftp.us.debian.org/debian experimental main contrib non-free
+deb-src http://ftp.us.debian.org/debian experimental main contrib non-free
 
 # SECURITY
 ##########
@@ -21,3 +32,4 @@ deb http://archive.cloudera.com/debian squeeze-cdh3 contrib
 deb-src http://archive.cloudera.com/debian squeeze-cdh3 contrib
 # Oracle JRE
 deb http://www.duinsoft.nl/pkg debs all
+
