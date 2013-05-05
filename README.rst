@@ -4,7 +4,7 @@ debian-configuration-files
 Important configuration files for a Debian system.
 
 :Distribution: Debian
-:Release: testing/wheezy
+:Release: testing/jessie
 :Architecture: amd64
 
 License

@@ -20,15 +20,13 @@ deb-src http://ftp.us.debian.org/debian experimental main contrib non-free
 
 # SECURITY
 ##########
-deb http://security.debian.org wheezy/updates main contrib non-free
-deb-src http://security.debian.org wheezy/updates main contrib non-free
+deb http://security.debian.org jessie/updates main contrib non-free
+deb-src http://security.debian.org jessie/updates main contrib non-free
 
 # SOFTWARES
 ###########
 # Mozilla
 deb http://mozilla.debian.net/ experimental iceweasel-aurora
-# Dropbox
-deb http://linux.dropbox.com/debian wheezy main
 # Cloudera's Distribution for Hadoop (CDH)
 deb http://archive.cloudera.com/debian squeeze-cdh3 contrib
 deb-src http://archive.cloudera.com/debian squeeze-cdh3 contrib
