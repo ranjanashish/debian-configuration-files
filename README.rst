@@ -19,6 +19,9 @@ Details
         * `sources.list <https://github.com/ranjanashish/debian-configuration-files/blob/master/etc/apt/sources.list>`_
 * home
     * ashish
+        * .config
+            * awesome
+                * `rc.lua <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.config/awesome/rc.lua>`_
         * .kde
             * share
                 * config
