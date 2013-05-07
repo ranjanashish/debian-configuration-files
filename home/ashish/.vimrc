@@ -1,4 +1,4 @@
-""""" ranjanashish : Path to this configuration file is ~/.vimrc """""
+""""" Path to this configuration file is ~/.vimrc """""
 
 " GLOBAL SETTING
 """"""""""""""""
@@ -73,14 +73,16 @@ Bundle 'https://github.com/gmarik/vundle'
 Bundle 'https://github.com/tomasr/molokai'
 " programming
 Bundle 'https://github.com/Shougo/neocomplcache'
+Bundle 'https://github.com/Shougo/neosnippet'
 Bundle 'https://github.com/Rip-Rip/clang_complete'
-Bundle 'https://github.com/msanders/snipmate.vim'
-Bundle 'https://github.com/vim-scripts/DoxygenToolkit.vim'
-Bundle 'https://github.com/scrooloose/nerdcommenter'
 Bundle 'https://github.com/scrooloose/syntastic'
+Bundle 'https://github.com/scrooloose/nerdcommenter'
 Bundle 'https://github.com/majutsushi/tagbar'
 Bundle 'https://github.com/tpope/vim-fugitive'
 Bundle 'https://github.com/gregsexton/gitv'
+Bundle 'https://github.com/vim-scripts/DoxygenToolkit.vim'
+Bundle 'https://github.com/davidhalter/jedi-vim'
+Bundle 'https://github.com/derekwyatt/vim-scala'
 Bundle 'https://github.com/rstacruz/sparkup', {'rtp': 'vim/'}
 " syntax
 Bundle 'https://github.com/vim-scripts/Arduino-syntax-file'
@@ -91,6 +93,8 @@ Bundle 'https://github.com/Lokaltog/vim-easymotion'
 Bundle 'https://github.com/scrooloose/nerdtree'
 Bundle 'https://github.com/kien/ctrlp.vim'
 Bundle 'https://github.com/sjl/gundo.vim'
+Bundle 'https://github.com/tpope/vim-surround'
+Bundle 'https://github.com/trotter/autojump.vim'
 filetype plugin indent on 
 
 " COLORSCHEME
@@ -115,7 +119,8 @@ let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion   = 1
 let g:neocomplcache_min_syntax_length            = 2
 " vim-latexsuite
-let g:tex_flavor='latex'
+let g:tex_flavor              = 'latex'
+let g:Tex_DefaultTargetFormat = 'pdf'
 " DoxygenToolkit
 let g:DoxygenToolkit_authorName = "Ashish Ranjan (Jalan)"
 " snipmate
@@ -123,12 +128,12 @@ let g:snips_author              = "Ashish Ranjan (Jalan)"
 
 " MAP
 """""
+" insert mode
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" normal mode
 nmap <silent> <leader>ev : e $HOME/.vimrc<CR>
 nmap <silent> <leader>sv : so $HOME/.vimrc<CR>
 nnoremap <leader>g       : GundoToggle<CR>
 nnoremap <leader>n       : NERDTreeToggle<CR>
 nnoremap <leader>t       : TagbarToggle<CR>
-nnoremap <C-t>           : tabnew<CR>
-nnoremap <C-Tab>         : tabnext<CR>
-nnoremap <C-S-Tab>       : tabprev<CR>
  
