@@ -1,30 +1,44 @@
 """"" Path to this configuration file is ~/.vimrc """""
 
+" REQUIREMENTS
+""""""""""""""
+" 1. git
+" 2. curl
+" 3. astyle
+" 4. tidy
+" 5. gcc
+" 6. g++
+" 7. python
+" 8. powerline
+" 9. clang
+
 " GLOBAL SETTING
 """"""""""""""""
 " general
-set nocompatible      " MUST BE FIRST LINE!!! Vi IMproved
-set autoindent        " 
-set cursorline        " highlight current line
-set encoding=utf-8    " use UTF-8
-set lazyredraw        " 
-set nobackup          " 
-set noswapfile        " 
-set pastetoggle=<F10> " 
-set scrolloff=3       " minimal number of screen lines to keep above and below the cursor
-set showcmd           " display incomplete commands
-set visualbell        " error bells are displayed visually
-set wildmenu          " show autocomplete menus
-set wildignore=*.o,*~ " 
-set tags=./tags;$HOME " look in the current directory for 'tags', and work up the tree towards $HOME until one is found
+set nocompatible          " MUST BE FIRST LINE!!! Vi IMproved
+set autoindent            " 
+set colorcolumn=80        " highlight particular column
+set cursorline            " highlight current line
+set encoding=utf-8        " use UTF-8
+set lazyredraw            " don't redraw while executing macros
+set nobackup              " 
+set noswapfile            " 
+set pastetoggle=<F10>     " 
+set scrolloff=3           " minimum number of lines above and below cursor
+set showcmd               " display incomplete commands
+set textwidth=80          " maximum width of text that is being inserted
+set visualbell            " error bells are displayed visually
+set wildmenu              " show autocomplete menus
+set wildignore=*.o,*~     " files matching these patterns are not completed
+set tags=./tags;$HOME     " look in the current directory for 'tags', and work up the tree towards $HOME until one is found
 " search
-set ignorecase " ignore case when searching
-set incsearch  " search as you type
+set ignorecase            " ignore case when searching
+set incsearch             " search as you type
 " tab
-set tabstop=4 " a tab equals these many columns
-set expandtab " insert appropriate number of spaces instead of a tab
-set shiftwidth=4
-set smarttab
+set tabstop=4             " number of spaces that <tab> in file uses
+set expandtab             " insert appropriate number of spaces instead of a tab
+set shiftwidth=4          " number of spaces to use for (auto)indent step
+set smarttab              " use 'shiftwidth' when inserting <tab>
 " required by plugins
 set grepprg=grep\ -nH\ $* " REQUIRED!!! by vim-latexsuite
 set laststatus=2          " REQUIRED!!! by powerline (always have status line)
@@ -46,10 +60,17 @@ autocmd BufNewFile,BufRead *.htm,*.html set formatprg=tidy
 " automatically do the syntax highlighting for arudino commands
 autocmd BufNewFile,BufRead *.ino setlocal filetype=arduino
 
+" F9 compile
+autocmd FileType c map <F9> :!gcc -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
+autocmd FileType cpp map <F9> :!g++ -std=c++11 -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
+autocmd FileType java map <F9> :!javac "%:p" && java -cp "%:p:h" "%:t:r"<CR>
+autocmd FileType python map <F9> :!python "%:p"<CR>
+autocmd FileType ruby map <F9> :!ruby "%:p"<CR>
+
 " GVIM
 """"""
 if has('gui_running')
-    set guifont=Monaco\ Regular\ 11 " font and font-size
+    set guifont=PragmataPro\ Regular\ 12 " font and font-size
     set guioptions=aivc
 endif
 
@@ -118,22 +139,21 @@ let g:neocomplcache_enable_smart_case            = 1
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion   = 1
 let g:neocomplcache_min_syntax_length            = 2
+" syntastic
+let g:syntastic_cpp_compiler_options = ' -std=c++11'
 " vim-latexsuite
 let g:tex_flavor              = 'latex'
 let g:Tex_DefaultTargetFormat = 'pdf'
 " DoxygenToolkit
 let g:DoxygenToolkit_authorName = "Ashish Ranjan (Jalan)"
-" snipmate
-let g:snips_author              = "Ashish Ranjan (Jalan)"
 
 " MAP
 """""
 " insert mode
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " normal mode
-nmap <silent> <leader>ev : e $HOME/.vimrc<CR>
-nmap <silent> <leader>sv : so $HOME/.vimrc<CR>
-nnoremap <leader>g       : GundoToggle<CR>
-nnoremap <leader>n       : NERDTreeToggle<CR>
-nnoremap <leader>t       : TagbarToggle<CR>
- 
+nmap <silent> <leader>ev :e $HOME/.vimrc<CR>
+nmap <silent> <leader>sv :so $HOME/.vimrc<CR>
+nnoremap <leader>g       :GundoToggle<CR>
+nnoremap <leader>n       :NERDTreeToggle<CR>
+nnoremap <leader>t       :TagbarToggle<CR>
