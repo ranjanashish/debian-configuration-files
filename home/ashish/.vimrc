@@ -32,6 +32,7 @@ set encoding=utf-8                  " use UTF-8
 set lazyredraw                      " don't redraw while executing macros
 set nobackup                        " 
 set noswapfile                      " 
+set number                          " print the line number in front of each line
 set pastetoggle=<F10>               " 
 set scrolloff=3                     " minimum number of lines above and below cursor
 set showcmd                         " display incomplete commands
@@ -65,6 +66,8 @@ autocmd BufNewFile,BufRead *.h,*.c,*.hpp,*.cpp,*.cs set formatprg=astyle\ --styl
 autocmd BufNewFile,BufRead *.java set formatprg=astyle\ --style=java\ --unpad-paren\ --pad-oper\ --pad-header
 " automatically set the format program 'tidy' for formatting HTML code
 autocmd BufNewFile,BufRead *.htm,*.html set formatprg=tidy
+autocmd BufNewFile,BufRead *.json set formatprg=python\ -mjson.tool
+
 " automatically do the syntax highlighting for arudino commands
 autocmd BufNewFile,BufRead *.ino setlocal filetype=arduino
 
@@ -73,27 +76,24 @@ autocmd FileType c map <F9> :!gcc -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
 autocmd FileType cpp map <F9> :!g++ -std=c++11 -pthread -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
 autocmd FileType java map <F9> :!javac "%:p" && java -cp "%:p:h" "%:t:r"<CR>
 autocmd FileType javascript map <F9> :!nodejs "%:p"<CR>
+autocmd FileType lua map <F9> :!lua "%:p"<CR>
 autocmd FileType python map <F9> :!python "%:p"<CR>
 autocmd FileType ruby map <F9> :!ruby "%:p"<CR>
 autocmd FileType scala map <F9> :!scala "%:p"<CR>
 
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
 " GVIM
 """"""
 if has('gui_running')
-    set guifont=PragmataPro\ Regular\ 12 " font and font-size
-    set guioptions=aivc
+    set guifont=Monospace\ 12 " font and font-size
 endif
 
 " CROSS-PLATFORM
 """"""""""""""""
 if has('win32') || has('win64')
     set rtp=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-endif
-
-" POWERLINE
-"""""""""""
-if has('unix')
-    set rtp+=~/.local/lib/python2.7/site-packages/powerline/bindings/vim
 endif
 
 " VUNDLE
@@ -104,18 +104,19 @@ call vundle#rc()
 Bundle 'https://github.com/gmarik/vundle'
 " look and feel
 Bundle 'https://github.com/tomasr/molokai'
+Bundle 'https://github.com/bling/vim-airline'
 " programming
-Bundle 'https://github.com/Shougo/neocomplcache'
-Bundle 'https://github.com/Shougo/neosnippet'
-Bundle 'https://github.com/honza/vim-snippets'
+"Bundle 'https://github.com/Shougo/neocomplcache'
+"Bundle 'https://github.com/Shougo/neosnippet'
+"Bundle 'https://github.com/honza/vim-snippets'
 Bundle 'https://github.com/scrooloose/syntastic'
 Bundle 'https://github.com/scrooloose/nerdcommenter'
 Bundle 'https://github.com/majutsushi/tagbar'
 Bundle 'https://github.com/tpope/vim-fugitive'
 Bundle 'https://github.com/gregsexton/gitv'
 Bundle 'https://github.com/vim-scripts/DoxygenToolkit.vim'
-Bundle 'https://github.com/davidhalter/jedi-vim'
 Bundle 'https://github.com/derekwyatt/vim-scala'
+Bundle 'https://github.com/elzr/vim-json'
 Bundle 'https://github.com/rstacruz/sparkup', {'rtp': 'vim/'}
 " syntax
 Bundle 'https://github.com/vim-scripts/Arduino-syntax-file'
@@ -125,7 +126,6 @@ Bundle 'https://github.com/vim-scripts/Align'
 Bundle 'https://github.com/Lokaltog/vim-easymotion'
 Bundle 'https://github.com/scrooloose/nerdtree'
 Bundle 'https://github.com/kien/ctrlp.vim'
-Bundle 'https://github.com/sjl/gundo.vim'
 Bundle 'https://github.com/tpope/vim-surround'
 Bundle 'https://github.com/tpope/vim-unimpaired'
 " unix only bundles
@@ -135,6 +135,7 @@ endif
 " python support required
 if has('python')
     Bundle 'https://github.com/Rip-Rip/clang_complete'
+    Bundle 'https://github.com/sjl/gundo.vim'
 endif
 filetype plugin indent on 
 
@@ -149,21 +150,21 @@ let mapleader = ","
 " GLOBAL VARIABLE
 """""""""""""""""
 " clang_complete
+let g:clang_use_library        = 1                       " instead of calling the 'clang/clang++' tool use 'libclang' directly
 if has('unix')
     let g:clang_library_path   = '/usr/lib/llvm-3.4/lib' " contains libclang.so
 endif
-let g:clang_use_library        = 1                       " instead of calling the 'clang/clang++' tool use 'libclang' directly
-let g:clang_auto_select        = 0                       " select nothing from the popup menu
-let g:clang_complete_auto      = 0                       " 
+let g:clang_auto_select        = 1                       " select nothing from the popup menu
+"let g:clang_complete_auto      = 0                       " 
 let g:clang_complete_copen     = 1                       " open quickfix window on error
 " neocomplcache
-let g:neocomplcache_enable_at_startup            = 1
-let g:neocomplcache_enable_smart_case            = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_underbar_completion   = 1
-let g:neocomplcache_min_syntax_length            = 2
+"let g:neocomplcache_enable_at_startup            = 1
+"let g:neocomplcache_enable_smart_case            = 1
+"let g:neocomplcache_enable_camel_case_completion = 1
+"let g:neocomplcache_enable_underbar_completion   = 1
+"let g:neocomplcache_min_syntax_length            = 2
 " neosnippet
-let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets'
+"let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets'
 " syntastic
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
 " vim-latexsuite
