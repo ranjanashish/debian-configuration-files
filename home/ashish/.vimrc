@@ -14,8 +14,7 @@
 " 10. ctags     ** unix  (apt-get) ** win32 ()                                              ** win64 ()
 " 11. clang     ** unix  (apt-get) ** win32 ()                                              ** win64 ()
 " 12. autojump  ** unix  (apt-get) ** win32 ()                                              ** win64 ()
-" 13. powerline ** unix  (git)     ** win32 ()                                              ** win64 ()
-" 14. vundle    ** unix  (git)     ** win32 (git)                                           ** win64 (git)
+" 13. vundle    ** unix  (git)     ** win32 (git)                                           ** win64 (git)
 
 " GLOBAL SETTING
 """"""""""""""""
@@ -32,6 +31,7 @@ set encoding=utf-8                  " use UTF-8
 set lazyredraw                      " don't redraw while executing macros
 set nobackup                        " 
 set noswapfile                      " 
+set nowrap
 set number                          " print the line number in front of each line
 set pastetoggle=<F10>               " 
 set scrolloff=3                     " minimum number of lines above and below cursor
@@ -66,6 +66,9 @@ autocmd BufNewFile,BufRead *.h,*.c,*.hpp,*.cpp,*.cs set formatprg=astyle\ --styl
 autocmd BufNewFile,BufRead *.java set formatprg=astyle\ --style=java\ --unpad-paren\ --pad-oper\ --pad-header
 " automatically set the format program 'tidy' for formatting HTML code
 autocmd BufNewFile,BufRead *.htm,*.html set formatprg=tidy
+" automatically set the format program 'xmllint' for formatting XML code
+autocmd BufNewFile,BufRead *.xml set formatprg=xmllint\ --format\ %
+" automatically set the format program 'python -mjson.tool' for formatting JSON code
 autocmd BufNewFile,BufRead *.json set formatprg=python\ -mjson.tool
 
 " automatically do the syntax highlighting for arudino commands
@@ -81,8 +84,9 @@ autocmd FileType python map <F9> :!python "%:p"<CR>
 autocmd FileType ruby map <F9> :!ruby "%:p"<CR>
 autocmd FileType scala map <F9> :!scala "%:p"<CR>
 
+" close pop-up menu (pum)
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible()  == 0|pclose|endif
 
 " GVIM
 """"""
