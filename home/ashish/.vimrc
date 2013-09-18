@@ -36,6 +36,7 @@ set number                          " print the line number in front of each lin
 set pastetoggle=<F10>               " 
 set scrolloff=3                     " minimum number of lines above and below cursor
 set showcmd                         " display incomplete commands
+set synmaxcol=200
 set visualbell                      " error bells are displayed visually
 set wildmenu                        " show autocomplete menus
 set wildignore=*.o,*~               " files matching these patterns are not completed
