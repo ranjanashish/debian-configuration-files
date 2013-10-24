@@ -28,6 +28,7 @@ Details
                     * `kioslaverc <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.kde/share/config/kioslaverc>`_
         * `.gitconfig <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.gitconfig>`_
         * `.vimrc <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.vimrc>`_
+        * `.Xdefaults <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.Xdefaults>`_
         * `.xinitrc <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.xinitrc>`_
         * `.zshrc <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.zshrc>`_
 
