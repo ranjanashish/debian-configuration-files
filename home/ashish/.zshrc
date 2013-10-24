@@ -33,11 +33,22 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-# ranjanashish
+################
+# ranjanashish #
+################
+
+source /usr/local/bin/aws_zsh_completer.sh
+unsetopt correctall
+
+# Exports
+#########
 #export http_proxy=http://username:password@proxy:port
 #export https_proxy=http://username:password@proxy:port
-alias logstash="java -jar /opt/logstash/logstash.jar --filterworkers 2"
+export TERM='xterm'
+PATH=~/applications/apache-jmeter-2.9/bin:~/applications/android-sdk-linux/platform-tools:$PATH
 
-unsetopt correctall
-PATH=~/applications/apache-jmeter-2.9/bin:~/applications/android-sdk-linux/platform-tools:$PATH 
+# Aliases
+#########
+alias logstash="java -jar /opt/logstash/logstash.jar agent --filterworkers 2"
+alias tsung-stats="/usr/lib/tsung/bin/tsung_stats.pl"
 

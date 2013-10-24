@@ -1,3 +1,5 @@
+----- Path to this configuration file is $HOME/.config/awesome/rc.lua -----
+
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -41,10 +43,10 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
+terminal = "urxvt"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -84,8 +86,8 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-    names  = {"www", "vim", "gitg", "dev", "files", "pdf", 7, 8, 9},
-    layout = {layouts[1], layouts[1], layouts[1], layouts[3], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1]}
+    names  = {"www", "vim", "gitg", "dev", "files", "pdf", "mpd"},
+    layout = {layouts[1], layouts[1], layouts[1], layouts[4], layouts[1], layouts[1], layouts[1]}
 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.

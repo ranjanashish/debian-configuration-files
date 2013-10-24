@@ -42,6 +42,7 @@ set wildmenu                        " show autocomplete menus
 set wildignore=*.o,*~               " files matching these patterns are not completed
 set tags=./tags;$HOME               " look in the current directory for 'tags', and work up the tree towards $HOME until one is found
 " search
+set hlsearch                        " highlight search
 set ignorecase                      " ignore case when searching
 set incsearch                       " search as you type
 " tab
@@ -68,7 +69,7 @@ autocmd BufNewFile,BufRead *.java set formatprg=astyle\ --style=java\ --unpad-pa
 " automatically set the format program 'tidy' for formatting HTML code
 autocmd BufNewFile,BufRead *.htm,*.html set formatprg=tidy
 " automatically set the format program 'xmllint' for formatting XML code
-autocmd BufNewFile,BufRead *.xml set formatprg=xmllint\ --format\ %
+autocmd BufNewFile,BufRead *.xml set formatprg=xmllint\ --encode\ UTF-8\ --format\ %
 " automatically set the format program 'python -mjson.tool' for formatting JSON code
 autocmd BufNewFile,BufRead *.json set formatprg=python\ -mjson.tool
 
@@ -113,12 +114,13 @@ Bundle 'https://github.com/bling/vim-airline'
 " programming
 "Bundle 'https://github.com/Shougo/neocomplcache'
 "Bundle 'https://github.com/Shougo/neosnippet'
-"Bundle 'https://github.com/honza/vim-snippets'
+Bundle 'https://github.com/honza/vim-snippets'
 Bundle 'https://github.com/scrooloose/syntastic'
 Bundle 'https://github.com/scrooloose/nerdcommenter'
 Bundle 'https://github.com/majutsushi/tagbar'
 Bundle 'https://github.com/tpope/vim-fugitive'
 Bundle 'https://github.com/gregsexton/gitv'
+Bundle 'https://github.com/airblade/vim-gitgutter'
 Bundle 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Bundle 'https://github.com/derekwyatt/vim-scala'
 Bundle 'https://github.com/elzr/vim-json'
@@ -180,6 +182,10 @@ let g:DoxygenToolkit_authorName = "Ashish Ranjan (Jalan)"
 
 " MAP
 """""
+if has('gui_running')
+    map <C-f> :promptrepl<CR>
+endif
+map <C-t> :tabnew<CR>
 " leader
 nmap <silent> <leader>ev :e $HOME/.vimrc<CR>
 nmap <silent> <leader>sv :so $HOME/.vimrc<CR>
@@ -191,4 +197,6 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
+nmap gh        <Plug>GitGutterNextHunk
+nmap gH        <Plug>GitGutterPrevHunk
 
