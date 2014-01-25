@@ -36,7 +36,7 @@ set number                          " print the line number in front of each lin
 set pastetoggle=<F10>               " 
 set scrolloff=3                     " minimum number of lines above and below cursor
 set showcmd                         " display incomplete commands
-set synmaxcol=200
+"set synmaxcol=200
 set visualbell                      " error bells are displayed visually
 set wildmenu                        " show autocomplete menus
 set wildignore=*.o,*~               " files matching these patterns are not completed
@@ -93,7 +93,7 @@ autocmd InsertLeave * if pumvisible()  == 0|pclose|endif
 " GVIM
 """"""
 if has('gui_running')
-    set guifont=Monospace\ 12 " font and font-size
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12 " font and font-size
 endif
 
 " CROSS-PLATFORM
@@ -123,6 +123,7 @@ Bundle 'https://github.com/gregsexton/gitv'
 Bundle 'https://github.com/airblade/vim-gitgutter'
 Bundle 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Bundle 'https://github.com/derekwyatt/vim-scala'
+Bundle 'https://github.com/davidhalter/jedi-vim'
 Bundle 'https://github.com/elzr/vim-json'
 Bundle 'https://github.com/rstacruz/sparkup', {'rtp': 'vim/'}
 " syntax
@@ -156,6 +157,8 @@ let mapleader = ","
 
 " GLOBAL VARIABLE
 """""""""""""""""
+" airline
+let g:airline_powerline_fonts  = 1
 " clang_complete
 let g:clang_use_library        = 1                       " instead of calling the 'clang/clang++' tool use 'libclang' directly
 if has('unix')
