@@ -1,3 +1,13 @@
+#!/bin/sh
+
+# clipit
+clipit &
+
+# conky
+conky &
+
+# tilda
 tilda &
-dropbox start &
+
+# awesome
 exec awesome
