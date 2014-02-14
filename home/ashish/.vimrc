@@ -79,6 +79,7 @@ autocmd BufNewFile,BufRead *.ino setlocal filetype=arduino
 " F9 compile
 autocmd FileType c map <F9> :!gcc -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
 autocmd FileType cpp map <F9> :!g++ -std=c++11 -pthread -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
+autocmd FileType erlang map <F9> :!erlc -o "%:p:h" "%:p" && erl -noshell -pa "%:p:h" -s "%:t:r" -eval 'init:stop()'<CR>
 autocmd FileType java map <F9> :!javac "%:p" && java -cp "%:p:h" "%:t:r"<CR>
 autocmd FileType javascript map <F9> :!nodejs "%:p"<CR>
 autocmd FileType lua map <F9> :!lua "%:p"<CR>
