@@ -3,13 +3,19 @@
 mkdir -p ~/git
 
 # install basic packages from debian repositories
-sudo apt-get install astyle autojump curl gcc g++ git tidy zsh
+#################################################
+sudo apt-get install astyle autojump clipit curl gcc g++ git lxappearance python-pip tidy tilda zsh
 
-# clone git repo
-################
-printf 'Cloning git repo\n'
-git clone https://github.com/ranjanashish/debian-configuration-files ~/git/debian-configuration-files
-printf 'Done!\n'
+# download config files
+#######################
+printf 'Downloading debian config files... \n'
+git clone -q https://github.com/ranjanashish/debian-configuration-files ~/git/debian-configuration-files
+exit_status_download_configs=$?
+if [[ ${exit_status_download_configs} -eq 0 ]]; then
+    printf 'Success!\n'
+else
+    printf 'Failed!\n'
+fi
 
 # install oh-my-zsh
 ###################
@@ -41,6 +47,7 @@ ln -s ~/git/debian-configuration-files/home/ashish/.vimrc ~/.vimrc
 ln -s ~/git/debian-configuration-files/home/ashish/.Xdefaults ~/.Xdefaults
 ln -s ~/git/debian-configuration-files/home/ashish/.xinitrc ~/.xinitrc
 ln -s ~/git/debian-configuration-files/home/ashish/.zshrc ~/.zshrc
+ln -s ~/.xinitrc ~/.xsession 
 printf 'Done!\n'
 
 # install vim plugins
@@ -58,4 +65,8 @@ fi
 printf '\nChanging default shell to zsh\n'
 chsh -s /bin/zsh
 printf 'Done!\n'
+
+# install python packages from pip
+##################################
+sudo pip install awscli
 
