@@ -11,7 +11,7 @@ printf 'Done!\n'
 # install oh-my-zsh
 ###################
 printf '\nInstalling oh-my-zsh... '
-git -q clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+git clone -q https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 exit_status_install_oh_my_zsh=$?
 if [[ ${exit_status_install_oh_my_zsh} -eq 0 ]]; then
     printf 'Success!\n'
@@ -22,7 +22,7 @@ fi
 # install vundle
 ################
 printf '\nInstalling vundle... '
-git -q clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+git clone -q https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 exit_status_install_vundle=$?
 if [[ ${exit_status_install_vundle} -eq 0 ]]; then
     printf 'Success!\n'
