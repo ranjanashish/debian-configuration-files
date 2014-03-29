@@ -13,8 +13,7 @@ License
 
 Installation
 ------------
-::
-    wget -q --no-check-certificate https://raw.githubusercontent.com/ranjanashish/debian-configuration-files/master/install.sh -O ~/install.sh && chmod 777 ~/install.sh && ./install.sh
+``wget -q --no-check-certificate https://raw.githubusercontent.com/ranjanashish/debian-configuration-files/master/install.sh -O ~/install.sh && chmod 777 ~/install.sh && ./install.sh``
 
 Details
 -------
