@@ -1,72 +1,53 @@
 #!/usr/bin/env bash
 
-mkdir -p ~/git
+declare -r GH_DEB_CONFIGS=https://github.com/ranjanashish/debian-configuration-files.git
+declare -r GH_OH_MY_ZSH=https://github.com/robbyrussell/oh-my-zsh.git
+declare -r GH_VUNDLE=https://github.com/gmarik/vundle.git
 
 # install basic packages from debian repositories
-#################################################
-sudo apt-get install astyle autojump clipit curl gcc g++ git lxappearance python-pip tidy tilda zsh
+sudo apt-get install astyle autojump clipit curl gcc g++ git python-pip tidy tilda vim zsh
 
-# download config files
-#######################
+# download config files and create symlinks
 printf 'Downloading debian config files... \n'
-git clone -q https://github.com/ranjanashish/debian-configuration-files ~/git/debian-configuration-files
-exit_status_download_configs=$?
-if [[ ${exit_status_download_configs} -eq 0 ]]; then
+mkdir -p ~/git
+git clone ${GH_DEB_CONFIGS} ~/git/debian-configuration-files >/dev/null 2>&1 && {
     printf 'Success!\n'
-else
-    printf 'Failed!\n'
-fi
+    printf 'Creating symlinks to config files... '
+    mkdir -p ~/.config/awesome
+    ln -s ~/git/debian-configuration-files/home/ashish/.config/awesome/rc.lua ~/.config/awesome/rc.lua
+    ln -s ~/git/debian-configuration-files/home/ashish/.gitconfig ~/.gitconfig
+    ln -s ~/git/debian-configuration-files/home/ashish/.vimrc ~/.vimrc
+    ln -s ~/git/debian-configuration-files/home/ashish/.Xdefaults ~/.Xdefaults
+    ln -s ~/git/debian-configuration-files/home/ashish/.xinitrc ~/.xinitrc
+    ln -s ~/git/debian-configuration-files/home/ashish/.zshrc ~/.zshrc
+    ln -s ~/.xinitrc ~/.xsession 
+    printf 'Done!\n'
+} || printf 'Failed!\n'
 
 # install oh-my-zsh
-###################
 printf '\nInstalling oh-my-zsh... '
-git clone -q https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-exit_status_install_oh_my_zsh=$?
-if [[ ${exit_status_install_oh_my_zsh} -eq 0 ]]; then
-    printf 'Success!\n'
-else
-    printf 'Failed!\n'
-fi
+git clone ${GH_OH_MY_ZSH} ~/.oh-my-zsh >/dev/null 2>&1 && printf 'Success!\n' || printf 'Failed!\n'
 
-# install vundle
-################
+# install vundle and vim plugins
 printf '\nInstalling vundle... '
-git clone -q https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-exit_status_install_vundle=$?
-if [[ ${exit_status_install_vundle} -eq 0 ]]; then
+git clone ${GH_VUNDLE} ~/.vim/bundle/vundle >/dev/null 2>&1 && {
     printf 'Success!\n'
-else
-    printf 'Failed!\n'
-fi
-
-# create symlinks
-#################
-printf '\nCreating symlinks... '
-ln -s ~/git/debian-configuration-files/home/ashish/.gitconfig ~/.gitconfig
-ln -s ~/git/debian-configuration-files/home/ashish/.vimrc ~/.vimrc
-ln -s ~/git/debian-configuration-files/home/ashish/.Xdefaults ~/.Xdefaults
-ln -s ~/git/debian-configuration-files/home/ashish/.xinitrc ~/.xinitrc
-ln -s ~/git/debian-configuration-files/home/ashish/.zshrc ~/.zshrc
-ln -s ~/.xinitrc ~/.xsession 
-printf 'Done!\n'
-
-# install vim plugins
-#####################
-if [[ ${exit_status_install_vundle} -eq 0 ]]; then
-    printf '\nInstalling vim plugins\n'
+    printf 'Installing vim plugins\n'
     sed -i 's/colorscheme molokai/#colorscheme molokai/' ~/.vimrc
     vim +PluginInstall +qall
     sed -i 's/#colorscheme molokai/colorscheme molokai/' ~/.vimrc
     printf 'Done!\n'
-fi
+} || printf 'Failed!\n'
 
 # change default shell to zsh
-#############################
 printf '\nChanging default shell to zsh\n'
-chsh -s /bin/zsh
+chsh -s $(which zsh)
 printf 'Done!\n'
 
 # install python packages from pip
-##################################
 sudo pip install awscli
+
+# add keys
+sudo apt-key adv --keyserver keys.gnupg.net --recv-keys 5CB26B26
+curl -s http://mozilla.debian.net/archive.asc | sudo apt-key add -
 
