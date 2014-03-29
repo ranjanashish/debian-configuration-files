@@ -11,6 +11,11 @@ License
 -------
 `GNU GPL v3.0 <http://www.gnu.org/licenses/gpl-3.0.txt>`_
 
+Installation
+------------
+::
+    wget -q --no-check-certificate https://raw.githubusercontent.com/ranjanashish/debian-configuration-files/master/install.sh -O ~/install.sh && chmod 777 ~/install.sh && ./install.sh
+
 Details
 -------
 * etc
