@@ -4,7 +4,7 @@
 clipit &
 
 # conky
-conky &
+#conky &
 
 # tilda
 tilda &
