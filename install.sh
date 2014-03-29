@@ -2,6 +2,9 @@
 
 mkdir -p ~/git
 
+# install basic packages from debian repositories
+sudo apt-get install astyle autojump curl gcc g++ git tidy zsh
+
 # clone git repo
 ################
 printf 'Cloning git repo\n'
@@ -44,7 +47,9 @@ printf 'Done!\n'
 #####################
 if [[ ${exit_status_install_vundle} -eq 0 ]]; then
     printf '\nInstalling vim plugins\n'
+    sed -i 's/colorscheme molokai/#colorscheme molokai/' ~/.vimrc
     vim +PluginInstall +qall
+    sed -i 's/#colorscheme molokai/colorscheme molokai/' ~/.vimrc
     printf 'Done!\n'
 fi
 
