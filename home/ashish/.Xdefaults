@@ -23,7 +23,7 @@ urxvt.cutchars:        `()'*<>[]{|}"
 
 ! Appearance
 !!!!!!!!!!!!
-urxvt*font:        xft:Monaco
+urxvt*font:        xft:Monospace
 urxvt*cursorColor: #00FF00
 !----- fake transparency
 urxvt*transparent: true
