@@ -118,6 +118,17 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 
+-- Create a disk widget
+diowidget = awful.widget.graph()
+diowidget:set_width(50)
+diowidget:set_background_color("#494B4F")
+diowidget:set_color("#FFFF00")
+vicious.cache(vicious.widgets.dio)
+vicious.register(diowidget, vicious.widgets.dio,
+                 function (widget, args)
+                     return args["{sda total_kb}"] + args["{sdb total_kb}"]
+                 end, 5)
+
 -- Create a network widget
 netwidget = awful.widget.graph()
 netwidget:set_width(50)
@@ -137,7 +148,7 @@ memwidget:set_background_color("#494B4F")
 memwidget:set_border_color(nil)
 memwidget:set_color("#00FFFF")
 vicious.cache(vicious.widgets.mem)
-vicious.register(memwidget, vicious.widgets.mem, "$1", 5)
+vicious.register(memwidget, vicious.widgets.mem, "$1", 7)
 
 -- Create a cpu widget
 cpuwidget = awful.widget.graph()
@@ -224,6 +235,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(diowidget)
     right_layout:add(netwidget)
     right_layout:add(memwidget)
     right_layout:add(cpuwidget)
