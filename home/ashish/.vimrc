@@ -52,8 +52,6 @@ set shiftwidth=4                    " number of spaces to use for (auto)indent s
 set smarttab                        " use 'shiftwidth' when inserting <tab>
 " required by plugins
 set grepprg=grep\ -nH\ $*           " REQUIRED!!! by vim-latexsuite
-set laststatus=2                    " REQUIRED!!! by powerline (always have status line)
-set t_Co=256                        " REQUIRED!!! by powerline
 
 " SYNTAX
 """"""""
@@ -63,38 +61,42 @@ syntax on " enable syntax highlighting.
 """""""""""""
 " autocmd {event} {pattern} {cmd}
 """""""""""""""""""""""""""""""""
-" automatically set the format program 'astyle' for formatting C/C++/C#/Java code
+" format programs
 autocmd BufNewFile,BufRead *.h,*.c,*.hpp,*.cpp,*.cs set formatprg=astyle\ --style=allman\ --unpad-paren\ --pad-oper\ --pad-header
-autocmd BufNewFile,BufRead *.java set formatprg=astyle\ --style=java\ --unpad-paren\ --pad-oper\ --pad-header
-" automatically set the format program 'tidy' for formatting HTML code
-autocmd BufNewFile,BufRead *.htm,*.html set formatprg=tidy
-" automatically set the format program 'xmllint' for formatting XML code
-autocmd BufNewFile,BufRead *.xml set formatprg=xmllint\ --encode\ UTF-8\ --format\ %
-" automatically set the format program 'python -mjson.tool' for formatting JSON code
-autocmd BufNewFile,BufRead *.json set formatprg=python\ -mjson.tool
-
-" automatically do the syntax highlighting for arudino commands
-autocmd BufNewFile,BufRead *.ino setlocal filetype=arduino
+autocmd BufNewFile,BufRead *.java                   set formatprg=astyle\ --style=java\   --unpad-paren\ --pad-oper\ --pad-header
+autocmd BufNewFile,BufRead *.htm,*.html             set formatprg=tidy
+autocmd BufNewFile,BufRead *.xml                    set formatprg=xmllint\ --encode\ UTF-8\ --format\ %
+autocmd BufNewFile,BufRead *.json                   set formatprg=python\ -mjson.tool
 
 " F9 compile
-autocmd FileType c map <F9> :!gcc -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
-autocmd FileType cpp map <F9> :!g++ -std=c++11 -pthread -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
-autocmd FileType erlang map <F9> :!erlc -o "%:p:h" "%:p" && erl -noshell -pa "%:p:h" -s "%:t:r" -eval 'init:stop()'<CR>
-autocmd FileType java map <F9> :!javac "%:p" && java -cp "%:p:h" "%:t:r"<CR>
+autocmd FileType c          map <F9> :!gcc -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
+autocmd FileType cpp        map <F9> :!g++ -std=c++11 -pthread -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
+autocmd FileType erlang     map <F9> :!erlc -o "%:p:h" "%:p" && erl -noshell -pa "%:p:h" -s "%:t:r" -eval 'init:stop()'<CR>
+autocmd FileType java       map <F9> :!javac "%:p" && java -cp "%:p:h" "%:t:r"<CR>
 autocmd FileType javascript map <F9> :!nodejs "%:p"<CR>
-autocmd FileType lua map <F9> :!lua "%:p"<CR>
-autocmd FileType python map <F9> :!python "%:p"<CR>
-autocmd FileType ruby map <F9> :!ruby "%:p"<CR>
-autocmd FileType scala map <F9> :!scala "%:p"<CR>
+autocmd FileType lua        map <F9> :!lua "%:p"<CR>
+autocmd FileType python     map <F9> :!python "%:p"<CR>
+autocmd FileType ruby       map <F9> :!ruby "%:p"<CR>
+autocmd FileType scala      map <F9> :!scala "%:p"<CR>
+
+" syntax highlighting for arduino files
+autocmd BufNewFile,BufRead *.ino setlocal filetype=arduino
 
 " close pop-up menu (pum)
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible()  == 0|pclose|endif
+autocmd InsertLeave  * if pumvisible() == 0|pclose|endif
+
+" 
+autocmd VimEnter * TagbarToggle
 
 " GVIM
 """"""
 if has('gui_running')
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12 " font and font-size
+    set guioptions-=m
+    set guioptions-=T
+    set guioptions-=r
+    set guioptions-=L
 endif
 
 " CROSS-PLATFORM
@@ -106,46 +108,47 @@ endif
 " VUNDLE
 """"""""
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'https://github.com/gmarik/vundle'
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'https://github.com/gmarik/Vundle.vim'
 " look and feel
-Bundle 'https://github.com/tomasr/molokai'
-Bundle 'https://github.com/bling/vim-airline'
+Plugin 'https://github.com/tomasr/molokai'
+Plugin 'https://github.com/bling/vim-airline'
 " programming
-"Bundle 'https://github.com/Shougo/neocomplcache'
-"Bundle 'https://github.com/Shougo/neosnippet'
-Bundle 'https://github.com/honza/vim-snippets'
-Bundle 'https://github.com/scrooloose/syntastic'
-Bundle 'https://github.com/scrooloose/nerdcommenter'
-Bundle 'https://github.com/majutsushi/tagbar'
-Bundle 'https://github.com/tpope/vim-fugitive'
-Bundle 'https://github.com/gregsexton/gitv'
-Bundle 'https://github.com/airblade/vim-gitgutter'
-Bundle 'https://github.com/vim-scripts/DoxygenToolkit.vim'
-Bundle 'https://github.com/derekwyatt/vim-scala'
-Bundle 'https://github.com/davidhalter/jedi-vim'
-Bundle 'https://github.com/elzr/vim-json'
-Bundle 'https://github.com/rstacruz/sparkup', {'rtp': 'vim/'}
-" syntax
-Bundle 'https://github.com/vim-scripts/Arduino-syntax-file'
-" utility
-Bundle 'https://github.com/Raimondi/delimitMate'
-Bundle 'https://github.com/vim-scripts/Align'
-Bundle 'https://github.com/Lokaltog/vim-easymotion'
-Bundle 'https://github.com/scrooloose/nerdtree'
-Bundle 'https://github.com/kien/ctrlp.vim'
-Bundle 'https://github.com/tpope/vim-surround'
-Bundle 'https://github.com/tpope/vim-unimpaired'
-" unix only bundles
-if has('unix')
-    Bundle 'https://github.com/trotter/autojump.vim'
-endif
-" python support required
+Plugin 'https://github.com/Shougo/neocomplcache'
 if has('python')
-    Bundle 'https://github.com/Rip-Rip/clang_complete'
-    Bundle 'https://github.com/sjl/gundo.vim'
+    Plugin 'https://github.com/Rip-Rip/clang_complete'
+    Plugin 'https://github.com/SirVer/ultisnips'
 endif
+Plugin 'https://github.com/honza/vim-snippets'
+Plugin 'https://github.com/scrooloose/syntastic'
+Plugin 'https://github.com/scrooloose/nerdcommenter'
+Plugin 'https://github.com/majutsushi/tagbar'
+Plugin 'https://github.com/tpope/vim-fugitive'
+Plugin 'https://github.com/gregsexton/gitv'
+Plugin 'https://github.com/airblade/vim-gitgutter'
+Plugin 'https://github.com/vim-scripts/DoxygenToolkit.vim'
+Plugin 'https://github.com/derekwyatt/vim-scala'
+Plugin 'https://github.com/davidhalter/jedi-vim'
+Plugin 'https://github.com/rstacruz/sparkup', {'rtp': 'vim/'}
+" syntax
+Plugin 'https://github.com/vim-scripts/Arduino-syntax-file'
+" utility
+Plugin 'https://github.com/Raimondi/delimitMate'
+Plugin 'https://github.com/vim-scripts/Align'
+Plugin 'https://github.com/Lokaltog/vim-easymotion'
+Plugin 'https://github.com/scrooloose/nerdtree'
+Plugin 'https://github.com/kien/ctrlp.vim'
+Plugin 'https://github.com/tpope/vim-surround'
+Plugin 'https://github.com/tpope/vim-unimpaired'
+Plugin 'https://github.com/tpope/vim-vinegar'
+if has('python')
+    Plugin 'https://github.com/sjl/gundo.vim'
+endif
+if has('unix')
+    Plugin 'https://github.com/trotter/autojump.vim'
+endif
+call vundle#end()
 filetype plugin indent on 
 
 " COLORSCHEME
@@ -154,7 +157,7 @@ colorscheme molokai
 
 " ALL VARIABLE
 """"""""""""""
-let mapleader = ","
+let mapleader = "\<Space>"
 
 " GLOBAL VARIABLE
 """""""""""""""""
@@ -169,15 +172,17 @@ let g:clang_auto_select        = 1                       " select nothing from t
 "let g:clang_complete_auto      = 0                       " 
 let g:clang_complete_copen     = 1                       " open quickfix window on error
 " neocomplcache
-"let g:neocomplcache_enable_at_startup            = 1
-"let g:neocomplcache_enable_smart_case            = 1
-"let g:neocomplcache_enable_camel_case_completion = 1
-"let g:neocomplcache_enable_underbar_completion   = 1
-"let g:neocomplcache_min_syntax_length            = 2
-" neosnippet
-"let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets'
+let g:neocomplcache_enable_at_startup            = 1
+let g:neocomplcache_enable_smart_case            = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion   = 1
+let g:neocomplcache_min_syntax_length            = 2
 " syntastic
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
+" ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " vim-latexsuite
 let g:tex_flavor              = 'latex'
 let g:Tex_DefaultTargetFormat = 'pdf'
@@ -190,17 +195,25 @@ if has('gui_running')
     map <C-f> :promptrepl<CR>
 endif
 map <C-t> :tabnew<CR>
-" leader
+
 nmap <silent> <leader>ev :e $HOME/.vimrc<CR>
 nmap <silent> <leader>sv :so $HOME/.vimrc<CR>
 nnoremap <leader>g       :GundoToggle<CR>
 nnoremap <leader>n       :NERDTreeToggle<CR>
 nnoremap <leader>t       :TagbarToggle<CR>
-" non-leader
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+noremap <silent><Leader>/ :nohls<CR>
+
 nmap gh        <Plug>GitGutterNextHunk
 nmap gH        <Plug>GitGutterPrevHunk
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" resize splits
+nnoremap <M-j> <C-w>-
+nnoremap <M-k> <C-w>+
+nnoremap <M-h> <C-w><
+nnoremap <M-l> <C-w>>
+
+nnoremap Y y$
+nnoremap j gj
+nnoremap k gk
 
