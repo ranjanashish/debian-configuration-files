@@ -142,6 +142,7 @@ Plugin 'https://github.com/kien/ctrlp.vim'
 Plugin 'https://github.com/tpope/vim-surround'
 Plugin 'https://github.com/tpope/vim-unimpaired'
 Plugin 'https://github.com/tpope/vim-vinegar'
+Plugin 'https://github.com/terryma/vim-expand-region'
 if has('python')
     Plugin 'https://github.com/sjl/gundo.vim'
 endif
@@ -173,6 +174,7 @@ let g:clang_auto_select        = 1                       " select nothing from t
 let g:clang_complete_copen     = 1                       " open quickfix window on error
 " neocomplcache
 let g:neocomplcache_enable_at_startup            = 1
+let g:neocomplcache_enable_auto_select           = 1
 let g:neocomplcache_enable_smart_case            = 1
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion   = 1
@@ -203,10 +205,6 @@ nnoremap <leader>n       :NERDTreeToggle<CR>
 nnoremap <leader>t       :TagbarToggle<CR>
 noremap <silent><Leader>/ :nohls<CR>
 
-nmap gh        <Plug>GitGutterNextHunk
-nmap gH        <Plug>GitGutterPrevHunk
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
 " resize splits
 nnoremap <M-j> <C-w>-
 nnoremap <M-k> <C-w>+
@@ -216,4 +214,9 @@ nnoremap <M-l> <C-w>>
 nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
+
+vmap v     <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+nmap gh    <Plug>GitGutterNextHunk
+nmap gH    <Plug>GitGutterPrevHunk
 
