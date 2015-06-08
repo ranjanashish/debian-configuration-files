@@ -1,57 +1,43 @@
 """"" Path to this configuration file is $HOME/.vimrc """""
 
-" REQUIREMENTS
-""""""""""""""
-" 1. git        ** unix  (apt-get) ** win32 (http://code.google.com/p/msysgit/)             ** win64 (http://code.google.com/p/msysgit/)
-" 2. curl       ** unix  (apt-get) ** win32 (http://code.google.com/p/msysgit/)             ** win64 (http://code.google.com/p/msysgit/)
-" 3. astyle     ** unix  (apt-get) ** win32 ()                                              ** win64 ()
-" 4. tidy       ** unix  (apt-get) ** win32 ()                                              ** win64 ()
-" 5. gcc        ** unix  (apt-get) ** win32 (https://sourceforge.net/projects/mingwbuilds/) ** win64 (https://sourceforge.net/projects/mingwbuilds/)
-" 6. g++        ** unix  (apt-get) ** win32 (https://sourceforge.net/projects/mingwbuilds/) ** win64 (https://sourceforge.net/projects/mingwbuilds/)
-" 7. python     ** unix  (apt-get) ** win32 ()                                              ** win64 ()
-" 8. ruby       ** unix  (apt-get) ** win32 ()                                              ** win64 ()
-" 9. scala      ** unix  (apt-get) ** win32 ()                                              ** win64 ()
-" 10. ctags     ** unix  (apt-get) ** win32 ()                                              ** win64 ()
-" 11. clang     ** unix  (apt-get) ** win32 ()                                              ** win64 ()
-" 12. autojump  ** unix  (apt-get) ** win32 ()                                              ** win64 ()
-" 13. vundle    ** unix  (git)     ** win32 (git)                                           ** win64 (git)
-
 " GLOBAL SETTING
 """"""""""""""""
 " general
-set nocompatible                    " MUST BE FIRST LINE!!! Vi IMproved
-set autoindent                      " take indent for new line from previous line
+set nocompatible                                        " MUST BE FIRST LINE!!! Vi IMproved
+set autoindent                                          " take indent for new line from previous line
 if has('unix')
-    set clipboard=unnamedplus       " 
+    set clipboard=unnamedplus
 elseif has('win32') || has('win64')
-    set clipboard=unnamed           " 
+    set clipboard=unnamed
 endif
-set cursorline                      " highlight current line
-set encoding=utf-8                  " use UTF-8
-set lazyredraw                      " don't redraw while executing macros
-set nobackup                        " 
-set noswapfile                      " 
-set nowrap
-set number                          " print the line number in front of each line
-set pastetoggle=<F10>               " 
-set scrolloff=3                     " minimum number of lines above and below cursor
-set showcmd                         " display incomplete commands
-"set synmaxcol=200
-set visualbell                      " error bells are displayed visually
-set wildmenu                        " show autocomplete menus
-set wildignore=*.o,*~               " files matching these patterns are not completed
-set tags=./tags;$HOME               " look in the current directory for 'tags', and work up the tree towards $HOME until one is found
+set cursorline                                          " highlight current line
+set encoding=utf-8                                      " use UTF-8
+set lazyredraw                                          " don't redraw while executing macros
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:< " characters for displaying in list mode
+set nobackup                                            " 
+set noswapfile                                          " whether to use a swapfile for a buffer
+set nowrap                                              " 
+set number                                              " print the line number in front of each line
+set pastetoggle=<F10>                                   " key code that causes 'paste' to toggle
+set scrolloff=3                                         " minimum number of lines above and below cursor
+set showcmd                                             " display incomplete commands
+set synmaxcol=200                                       " maximum column to find syntax items
+set visualbell                                          " error bells are displayed visually
+set wildmenu                                            " show autocomplete menus
+set wildignore=*.o,*~                                   " files matching these patterns are not completed
+set tags=./tags;$HOME                                   " look in the current directory for 'tags', and work up the tree towards $HOME until one is found
 " search
-set hlsearch                        " highlight search
-set ignorecase                      " ignore case when searching
-set incsearch                       " search as you type
+set hlsearch                                            " highlight search
+set ignorecase                                          " ignore case when searching
+set incsearch                                           " search as you type
 " tab
-set tabstop=4                       " number of spaces that <tab> in file uses
-set expandtab                       " insert appropriate number of spaces instead of a tab
-set shiftwidth=4                    " number of spaces to use for (auto)indent step
-set smarttab                        " use 'shiftwidth' when inserting <tab>
+set tabstop=4                                           " number of spaces that <tab> in file uses
+set expandtab                                           " insert appropriate number of spaces instead of a tab
+set shiftwidth=4                                        " number of spaces to use for (auto)indent step
+set smarttab                                            " use 'shiftwidth' when inserting <tab>
 " required by plugins
-set grepprg=grep\ -nH\ $*           " REQUIRED!!! by vim-latexsuite
+set grepprg=grep\ -nH\ $*                               " REQUIRED!!! by vim-latexsuite
+set laststatus=2                                        " REQUIRED!!! by vim-airline
 
 " SYNTAX
 """"""""
@@ -79,15 +65,15 @@ autocmd FileType python     map <F9> :!python "%:p"<CR>
 autocmd FileType ruby       map <F9> :!ruby "%:p"<CR>
 autocmd FileType scala      map <F9> :!scala "%:p"<CR>
 
+" 
+autocmd FileType c,cpp,java,python autocmd BufWritePre <buffer> :%s/\s\+$//e
+
 " syntax highlighting for arduino files
 autocmd BufNewFile,BufRead *.ino setlocal filetype=arduino
 
 " close pop-up menu (pum)
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave  * if pumvisible() == 0|pclose|endif
-
-" 
-autocmd VimEnter * TagbarToggle
 
 " GVIM
 """"""
@@ -115,9 +101,8 @@ Plugin 'https://github.com/gmarik/Vundle.vim'
 Plugin 'https://github.com/tomasr/molokai'
 Plugin 'https://github.com/bling/vim-airline'
 " programming
-Plugin 'https://github.com/Shougo/neocomplcache'
 if has('python')
-    Plugin 'https://github.com/Rip-Rip/clang_complete'
+    Plugin 'https://github.com/Valloric/YouCompleteMe'
     Plugin 'https://github.com/SirVer/ultisnips'
 endif
 Plugin 'https://github.com/honza/vim-snippets'
@@ -129,7 +114,6 @@ Plugin 'https://github.com/gregsexton/gitv'
 Plugin 'https://github.com/airblade/vim-gitgutter'
 Plugin 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plugin 'https://github.com/derekwyatt/vim-scala'
-Plugin 'https://github.com/davidhalter/jedi-vim'
 Plugin 'https://github.com/rstacruz/sparkup', {'rtp': 'vim/'}
 " syntax
 Plugin 'https://github.com/vim-scripts/Arduino-syntax-file'
@@ -164,21 +148,6 @@ let mapleader = "\<Space>"
 """""""""""""""""
 " airline
 let g:airline_powerline_fonts  = 1
-" clang_complete
-let g:clang_use_library        = 1                       " instead of calling the 'clang/clang++' tool use 'libclang' directly
-if has('unix')
-    let g:clang_library_path   = '/usr/lib/llvm-3.4/lib' " contains libclang.so
-endif
-let g:clang_auto_select        = 1                       " select nothing from the popup menu
-"let g:clang_complete_auto      = 0                       " 
-let g:clang_complete_copen     = 1                       " open quickfix window on error
-" neocomplcache
-let g:neocomplcache_enable_at_startup            = 1
-let g:neocomplcache_enable_auto_select           = 1
-let g:neocomplcache_enable_smart_case            = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_underbar_completion   = 1
-let g:neocomplcache_min_syntax_length            = 2
 " syntastic
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
 " ultisnips
