@@ -48,11 +48,13 @@ syntax on " enable syntax highlighting.
 " autocmd {event} {pattern} {cmd}
 """""""""""""""""""""""""""""""""
 " format programs
-autocmd BufNewFile,BufRead *.h,*.c,*.hpp,*.cpp,*.cs set formatprg=astyle\ --style=allman\ --unpad-paren\ --pad-oper\ --pad-header
-autocmd BufNewFile,BufRead *.java                   set formatprg=astyle\ --style=java\   --unpad-paren\ --pad-oper\ --pad-header
-autocmd BufNewFile,BufRead *.htm,*.html             set formatprg=tidy
-autocmd BufNewFile,BufRead *.xml                    set formatprg=xmllint\ --encode\ UTF-8\ --format\ %
-autocmd BufNewFile,BufRead *.json                   set formatprg=python\ -mjson.tool
+" NOTE: ``formatprg`` is a global option
+autocmd BufEnter *.h,*.c,*.hpp,*.cpp,*.cs set formatprg=astyle\ --style=allman\ --unpad-paren\ --pad-oper\ --pad-header
+autocmd BufEnter *.java                   set formatprg=astyle\ --style=java\   --unpad-paren\ --pad-oper\ --pad-header
+autocmd BufEnter *.json                   set formatprg=python\ -mjson.tool
+autocmd BufEnter *.py                     set formatprg=autopep8\ -
+autocmd BufEnter *.htm,*.html             set formatprg=tidy
+autocmd BufEnter *.xml                    set formatprg=xmllint\ --encode\ UTF-8\ --format\ %
 
 " F9 compile
 autocmd FileType c          map <F9> :!gcc -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
