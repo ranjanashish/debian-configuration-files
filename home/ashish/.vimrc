@@ -80,11 +80,17 @@ autocmd InsertLeave  * if pumvisible() == 0|pclose|endif
 " GVIM
 """"""
 if has('gui_running')
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12 " font and font-size
-    set guioptions-=m
-    set guioptions-=T
-    set guioptions-=r
-    set guioptions-=L
+    set guioptions-=m  " no menubar
+    set guioptions-=T  " no toolbar
+    set guioptions-=r  " no right-hand scrollbar
+    set guioptions-=L  " no left-hand scrollbar
+    if has('gui_gtk2')
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12
+    elseif has("gui_macvim")
+        set guifont=Menlo\ Regular:h14
+    elseif has("gui_win32")
+        set guifont=Consolas:h10:cANSI
+    endif
 endif
 
 " CROSS-PLATFORM
@@ -98,10 +104,11 @@ endif
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'https://github.com/gmarik/Vundle.vim'
+Plugin 'https://github.com/VundleVim/Vundle.vim'
 " look and feel
 Plugin 'https://github.com/tomasr/molokai'
 Plugin 'https://github.com/bling/vim-airline'
+Plugin 'https://github.com/bling/vim-bufferline'
 " programming
 if has('python')
     Plugin 'https://github.com/Valloric/YouCompleteMe'
@@ -110,6 +117,7 @@ endif
 Plugin 'https://github.com/honza/vim-snippets'
 Plugin 'https://github.com/scrooloose/syntastic'
 Plugin 'https://github.com/scrooloose/nerdcommenter'
+Plugin 'https://github.com/Xuyuanp/nerdtree-git-plugin'
 Plugin 'https://github.com/majutsushi/tagbar'
 Plugin 'https://github.com/tpope/vim-fugitive'
 Plugin 'https://github.com/gregsexton/gitv'
@@ -150,6 +158,8 @@ let mapleader = "\<Space>"
 """""""""""""""""
 " airline
 let g:airline_powerline_fonts  = 1
+" nerdtree
+let NERDTreeIgnore = ['\.pyc$']
 " syntastic
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
 " ultisnips
@@ -159,6 +169,8 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " vim-latexsuite
 let g:tex_flavor              = 'latex'
 let g:Tex_DefaultTargetFormat = 'pdf'
+" YouCompleteMe
+let g:ycm_key_list_select_completion = ['<Down>', '<Enter>']
 " DoxygenToolkit
 let g:DoxygenToolkit_authorName = "Ashish Ranjan (Jalan)"
 
