@@ -3,19 +3,19 @@
 # OFFICIAL
 ##########
 # Testing
-deb     http://http.debian.net/debian testing        main contrib non-free
-deb-src http://http.debian.net/debian testing        main contrib non-free
+deb     http://ftp.us.debian.org/debian testing      main contrib non-free
+deb-src http://ftp.us.debian.org/debian testing      main contrib non-free
 # Unstable
-deb     http://http.debian.net/debian unstable       main contrib non-free
-deb-src http://http.debian.net/debian unstable       main contrib non-free
+deb     http://ftp.us.debian.org/debian unstable     main contrib non-free
+deb-src http://ftp.us.debian.org/debian unstable     main contrib non-free
 # Experimental
-deb     http://http.debian.net/debian experimental   main contrib non-free
-deb-src http://http.debian.net/debian experimental   main contrib non-free
+deb     http://ftp.us.debian.org/debian experimental main contrib non-free
+deb-src http://ftp.us.debian.org/debian experimental main contrib non-free
 
 # SECURITY
 ##########
-deb     http://security.debian.org    jessie/updates main contrib non-free
-deb-src http://security.debian.org    jessie/updates main contrib non-free
+deb     http://security.debian.org stretch/updates   main contrib non-free
+deb-src http://security.debian.org stretch/updates   main contrib non-free
 
 # SOFTWARES
 ###########
@@ -23,11 +23,7 @@ deb-src http://security.debian.org    jessie/updates main contrib non-free
 deb http://mozilla.debian.net/ experimental iceweasel-aurora
 # Google Chrome
 deb http://dl.google.com/linux/chrome/deb/ stable main
-# Cloudera's Distribution for Hadoop (CDH)
-deb http://archive.cloudera.com/cdh4/debian/squeeze/amd64/cdh squeeze-cdh4 contrib
-deb-src http://archive.cloudera.com/cdh4/debian/squeeze/amd64/cdh squeeze-cdh4 contrib
-# Oracle JRE
-deb http://www.duinsoft.nl/pkg debs all
 # Jenkins
 deb http://pkg.jenkins-ci.org/debian binary/
-
+# Perforce
+deb http://package.perforce.com/apt/ubuntu precise release
