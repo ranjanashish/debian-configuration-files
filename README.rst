@@ -22,19 +22,21 @@ Details
         * `apt.conf <https://github.com/ranjanashish/debian-configuration-files/blob/master/etc/apt/apt.conf>`_
         * `sources.list <https://github.com/ranjanashish/debian-configuration-files/blob/master/etc/apt/sources.list>`_
 * home
-    * ashish
+    * aranjan
         * .config
             * awesome
-                * `rc.lua <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.config/awesome/rc.lua>`_
+                * `rc.lua <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/aranjan/.config/awesome/rc.lua>`_
+            * `flake8 <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/aranjan/.config/flake8>`_
+            * `pylintrc <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/aranjan/.config/pylintrc>`_
         * .kde
             * share
                 * config
-                    * `kioslaverc <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.kde/share/config/kioslaverc>`_
-        * `.gitconfig <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.gitconfig>`_
-        * `.vimrc <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.vimrc>`_
-        * `.Xdefaults <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.Xdefaults>`_
-        * `.xinitrc <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.xinitrc>`_
-        * `.zshrc <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/ashish/.zshrc>`_
+                    * `kioslaverc <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/aranjan/.kde/share/config/kioslaverc>`_
+        * `.gitconfig <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/aranjan/.gitconfig>`_
+        * `.vimrc <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/aranjan/.vimrc>`_
+        * `.Xdefaults <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/aranjan/.Xdefaults>`_
+        * `.xinitrc <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/aranjan/.xinitrc>`_
+        * `.zshrc <https://github.com/ranjanashish/debian-configuration-files/blob/master/home/aranjan/.zshrc>`_
 
 Known Issues
 ------------
