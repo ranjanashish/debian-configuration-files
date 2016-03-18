@@ -21,10 +21,10 @@ set number                                              " print the line number 
 set pastetoggle=<F10>                                   " key code that causes 'paste' to toggle
 set scrolloff=3                                         " minimum number of lines above and below cursor
 set showcmd                                             " display incomplete commands
-set synmaxcol=200                                       " maximum column to find syntax items
+set synmaxcol=400                                       " maximum column to find syntax items
 set visualbell                                          " error bells are displayed visually
 set wildmenu                                            " show autocomplete menus
-set wildignore=*.o,*~                                   " files matching these patterns are not completed
+set wildignore=*.o,*~,*.pyc                             " files matching these patterns are not completed
 set tags=./tags;$HOME                                   " look in the current directory for 'tags', and work up the tree towards $HOME until one is found
 " search
 set hlsearch                                            " highlight search
@@ -65,6 +65,7 @@ autocmd FileType javascript map <F9> :!nodejs "%:p"<CR>
 autocmd FileType lua        map <F9> :!lua "%:p"<CR>
 autocmd FileType python     map <F9> :!python "%:p"<CR>
 autocmd FileType ruby       map <F9> :!ruby "%:p"<CR>
+autocmd FileType rust       map <F9> :!rustc -o "%:p:r.out" "%:p" && "%:p:r.out"<CR>
 autocmd FileType scala      map <F9> :!scala "%:p"<CR>
 
 " 
@@ -85,7 +86,7 @@ if has('gui_running')
     set guioptions-=r  " no right-hand scrollbar
     set guioptions-=L  " no left-hand scrollbar
     if has('gui_gtk2')
-        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
     elseif has("gui_macvim")
         set guifont=Menlo\ Regular:h14
     elseif has("gui_win32")
@@ -99,52 +100,51 @@ if has('win32') || has('win64')
     set rtp=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
-" VUNDLE
-""""""""
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'https://github.com/VundleVim/Vundle.vim'
+" VIM-PLUG
+""""""""""
+call plug#begin('~/.vim/plugged')
+
 " look and feel
-Plugin 'https://github.com/tomasr/molokai'
-Plugin 'https://github.com/bling/vim-airline'
-Plugin 'https://github.com/bling/vim-bufferline'
+Plug 'tomasr/molokai'
+Plug 'vim-airline/vim-airline'
 " programming
-if has('python')
-    Plugin 'https://github.com/Valloric/YouCompleteMe'
-    Plugin 'https://github.com/SirVer/ultisnips'
-endif
-Plugin 'https://github.com/honza/vim-snippets'
-Plugin 'https://github.com/scrooloose/syntastic'
-Plugin 'https://github.com/scrooloose/nerdcommenter'
-Plugin 'https://github.com/Xuyuanp/nerdtree-git-plugin'
-Plugin 'https://github.com/majutsushi/tagbar'
-Plugin 'https://github.com/tpope/vim-fugitive'
-Plugin 'https://github.com/gregsexton/gitv'
-Plugin 'https://github.com/airblade/vim-gitgutter'
-Plugin 'https://github.com/vim-scripts/DoxygenToolkit.vim'
-Plugin 'https://github.com/derekwyatt/vim-scala'
-Plugin 'https://github.com/rstacruz/sparkup', {'rtp': 'vim/'}
+Plug 'Valloric/YouCompleteMe', {'do': './install.py'} " requires python
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'   " requires python
+Plug 'scrooloose/syntastic'
+Plug 'scrooloose/nerdcommenter'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'derekwyatt/vim-scala', {'for': 'scala'}
+Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'Yggdroot/indentLine'
 " syntax
-Plugin 'https://github.com/vim-scripts/Arduino-syntax-file'
+Plug 'vim-scripts/Arduino-syntax-file'
 " utility
-Plugin 'https://github.com/Raimondi/delimitMate'
-Plugin 'https://github.com/vim-scripts/Align'
-Plugin 'https://github.com/Lokaltog/vim-easymotion'
-Plugin 'https://github.com/scrooloose/nerdtree'
-Plugin 'https://github.com/kien/ctrlp.vim'
-Plugin 'https://github.com/tpope/vim-surround'
-Plugin 'https://github.com/tpope/vim-unimpaired'
-Plugin 'https://github.com/tpope/vim-vinegar'
-Plugin 'https://github.com/terryma/vim-expand-region'
-if has('python')
-    Plugin 'https://github.com/sjl/gundo.vim'
-endif
+Plug 'mhinz/vim-Startify'
+Plug 'Raimondi/delimitMate'
+Plug 'vim-scripts/Align'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeFromBookmark']}
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+Plug 'terryma/vim-expand-region'
+Plug 'rking/ag.vim'
+Plug 'xolox/vim-misc' | Plug 'xolox/vim-session'
+Plug 'sjl/gundo.vim'                                  " requires python
 if has('unix')
-    Plugin 'https://github.com/trotter/autojump.vim'
+    Plug 'trotter/autojump.vim'
 endif
-call vundle#end()
-filetype plugin indent on 
+
+call plug#end()
 
 " COLORSCHEME
 """""""""""""
@@ -158,19 +158,52 @@ let mapleader = "\<Space>"
 """""""""""""""""
 " airline
 let g:airline_powerline_fonts  = 1
+
 " nerdtree
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = ['\.pyc$', '^__pycache__$']
+
+" session
+let g:session_directory = '~/.vim/session'
+let g:session_autoload = 'no'
+let g:session_autosave = 'no'
+
+" startify
+let g:startify_list_order = [['   Sessions'], 'sessions', ['   Bookmarks'], 'bookmarks', ['   MRU'], 'files']
+
 " syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+
+"let g:syntastic_error_symbol = '✗'
+"let g:syntastic_style_error_symbol = '⁉️'
+"let g:syntastic_warning_symbol = '⚠'
+"let g:syntastic_style_warning_symbol = '≈≈'
+
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
+
+"highlight link SyntasticErrorSign SignColumn
+"highlight link SyntasticWarningSign SignColumn
+"highlight link SyntasticStyleErrorSign SignColumn
+"highlight link SyntasticStyleWarningSign SignColumn
+
 " ultisnips
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
 " vim-latexsuite
 let g:tex_flavor              = 'latex'
 let g:Tex_DefaultTargetFormat = 'pdf'
+
 " YouCompleteMe
-let g:ycm_key_list_select_completion = ['<Down>', '<Enter>']
+let g:ycm_key_list_select_completion = ['<tab>, <Down>', '<Enter>']
+
 " DoxygenToolkit
 let g:DoxygenToolkit_authorName = "Ashish Ranjan (Jalan)"
 
@@ -202,4 +235,3 @@ vmap v     <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 nmap gh    <Plug>GitGutterNextHunk
 nmap gH    <Plug>GitGutterPrevHunk
-
