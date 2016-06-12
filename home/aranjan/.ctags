@@ -1,0 +1,9 @@
+# general
+--exclude=.git
+--excmd=p
+--extra=+q
+--recurse=yes
+--tag-relative=yes
+
+# python
+--python-kinds=-i

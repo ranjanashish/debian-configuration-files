@@ -49,8 +49,8 @@ syntax on " enable syntax highlighting.
 """""""""""""""""""""""""""""""""
 " format programs
 " NOTE: ``formatprg`` is a global option
-autocmd BufEnter *.h,*.c,*.hpp,*.cpp,*.cs set formatprg=astyle\ --style=allman\ --unpad-paren\ --pad-oper\ --pad-header
-autocmd BufEnter *.java                   set formatprg=astyle\ --style=java\   --unpad-paren\ --pad-oper\ --pad-header
+autocmd BufEnter *.h,*.c,*.hpp,*.cpp,*.cs set formatprg=astyle\ --style=allman\ --unpad-paren\ --pad-oper\ --pad-header\ --align-pointer=type
+autocmd BufEnter *.java                   set formatprg=astyle\ --style=java
 autocmd BufEnter *.json                   set formatprg=python\ -mjson.tool
 autocmd BufEnter *.py                     set formatprg=autopep8\ -
 autocmd BufEnter *.htm,*.html             set formatprg=tidy
@@ -108,8 +108,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'tomasr/molokai'
 Plug 'vim-airline/vim-airline'
 " programming
-Plug 'Valloric/YouCompleteMe', {'do': './install.py'} " requires python
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'   " requires python
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'} " requires python
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'                     " requires python
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -117,11 +117,13 @@ Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
 Plug 'airblade/vim-gitgutter'
-Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'derekwyatt/vim-scala', {'for': 'scala'}
-Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'Yggdroot/indentLine'
+Plug 'vim-scripts/DoxygenToolkit.vim', {'for': 'cpp'}
+Plug 'rstacruz/sparkup',               {'for': 'html', 'rtp': 'vim/'}
+Plug 'mitsuhiko/vim-jinja',            {'for': 'html'}
+Plug 'python-rope/ropevim',            {'for': 'python'}                " requires python
+Plug 'rust-lang/rust.vim',             {'for': 'rust'}
+Plug 'derekwyatt/vim-scala',           {'for': 'scala'}
 " syntax
 Plug 'vim-scripts/Arduino-syntax-file'
 " utility
@@ -139,7 +141,9 @@ Plug 'tpope/vim-vinegar'
 Plug 'terryma/vim-expand-region'
 Plug 'rking/ag.vim'
 Plug 'xolox/vim-misc' | Plug 'xolox/vim-session'
-Plug 'sjl/gundo.vim'                                  " requires python
+Plug 'sjl/gundo.vim'                                                    " requires python
+Plug 'junegunn/limelight.vim', {'on': 'Limelight'}
+Plug 'wellle/targets.vim'
 if has('unix')
     Plug 'trotter/autojump.vim'
 endif
@@ -160,7 +164,7 @@ let mapleader = "\<Space>"
 let g:airline_powerline_fonts  = 1
 
 " nerdtree
-let NERDTreeIgnore = ['\.pyc$', '^__pycache__$']
+let NERDTreeIgnore = ['\.o$', '\.out$', '\.pyc$', '^__pycache__$']
 
 " session
 let g:session_directory = '~/.vim/session'
@@ -187,6 +191,9 @@ let g:syntastic_check_on_wq = 1
 
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
 
+let g:syntastic_python_checkers = ['python', 'flake8', 'mypy']
+let g:syntastic_python_python_exec = '/usr/bin/python3'
+
 "highlight link SyntasticErrorSign SignColumn
 "highlight link SyntasticWarningSign SignColumn
 "highlight link SyntasticStyleErrorSign SignColumn
@@ -212,7 +219,6 @@ let g:DoxygenToolkit_authorName = "Ashish Ranjan (Jalan)"
 if has('gui_running')
     map <C-f> :promptrepl<CR>
 endif
-map <C-t> :tabnew<CR>
 
 nmap <silent> <leader>ev :e $HOME/.vimrc<CR>
 nmap <silent> <leader>sv :so $HOME/.vimrc<CR>
