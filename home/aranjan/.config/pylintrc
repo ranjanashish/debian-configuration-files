@@ -1,2 +1,5 @@
 [format]
 max-line-length = 120
+
+[basic]
+good-names=log,db

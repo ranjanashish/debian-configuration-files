@@ -86,7 +86,7 @@ if has('gui_running')
     set guioptions-=r  " no right-hand scrollbar
     set guioptions-=L  " no left-hand scrollbar
     if has('gui_gtk2')
-        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
+        set guifont=Inconsolata\ for\ Powerline\ 14
     elseif has("gui_macvim")
         set guifont=Menlo\ Regular:h14
     elseif has("gui_win32")
@@ -164,7 +164,7 @@ let mapleader = "\<Space>"
 let g:airline_powerline_fonts  = 1
 
 " nerdtree
-let NERDTreeIgnore = ['\.o$', '\.out$', '\.pyc$', '^__pycache__$']
+let NERDTreeIgnore = ['^__pycache__$', '^bower_components$', '^node_modules$', '^tags$', '\.o$', '\.out$', '\.pyc$']
 
 " session
 let g:session_directory = '~/.vim/session'

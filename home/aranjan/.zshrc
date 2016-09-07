@@ -29,7 +29,8 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+WORKON_HOME=~/.venvs
+plugins=(autojump colored-man-pages docker docker-compose git git-flow mvn virtualenvwrapper)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -37,7 +38,7 @@ source $ZSH/oh-my-zsh.sh
 # ranjanashish #
 ################
 
-source /usr/local/bin/aws_zsh_completer.sh
+# source /usr/local/bin/aws_zsh_completer.sh
 unsetopt correctall
 
 # Exports
