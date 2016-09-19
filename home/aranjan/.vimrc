@@ -85,7 +85,7 @@ if has('gui_running')
     set guioptions-=T  " no toolbar
     set guioptions-=r  " no right-hand scrollbar
     set guioptions-=L  " no left-hand scrollbar
-    if has('gui_gtk2')
+    if has('gui_gtk3') || has('gui_gtk2')
         set guifont=Inconsolata\ for\ Powerline\ 14
     elseif has("gui_macvim")
         set guifont=Menlo\ Regular:h14
@@ -96,7 +96,7 @@ endif
 
 " CROSS-PLATFORM
 """"""""""""""""
-if has('win32') || has('win64')
+if has('win64') || has('win32')
     set rtp=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
