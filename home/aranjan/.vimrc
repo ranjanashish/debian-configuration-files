@@ -7,7 +7,7 @@ set nocompatible                                        " MUST BE FIRST LINE!!! 
 set autoindent                                          " take indent for new line from previous line
 if has('unix')
     set clipboard=unnamedplus
-elseif has('win32') || has('win64')
+elseif has('win64') || has('win32')
     set clipboard=unnamed
 endif
 set cursorline                                          " highlight current line
@@ -113,7 +113,7 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'                     " requir
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
 Plug 'airblade/vim-gitgutter'
@@ -162,6 +162,8 @@ let mapleader = "\<Space>"
 """""""""""""""""
 " airline
 let g:airline_powerline_fonts  = 1
+" airline - extensions
+let g:airline#extensions#tagbar#enabled = 0
 
 " nerdtree
 let NERDTreeIgnore = ['^__pycache__$', '^bower_components$', '^node_modules$', '^tags$', '\.o$', '\.out$', '\.pyc$']
@@ -191,8 +193,9 @@ let g:syntastic_check_on_wq = 1
 
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
 
-let g:syntastic_python_checkers = ['python', 'flake8', 'mypy']
 let g:syntastic_python_python_exec = '/usr/bin/python3'
+let g:syntastic_python_pylint_exe = 'pylint3'
+let g:syntastic_python_checkers = ['python', 'flake8', 'mypy']
 
 "highlight link SyntasticErrorSign SignColumn
 "highlight link SyntasticWarningSign SignColumn
@@ -216,6 +219,16 @@ let g:DoxygenToolkit_authorName = "Ashish Ranjan (Jalan)"
 
 " MAP
 """""
+nnoremap Y y$
+nnoremap j gj
+nnoremap k gk
+
+" resize splits
+nnoremap <M-j> <C-w>-
+nnoremap <M-k> <C-w>+
+nnoremap <M-h> <C-w><
+nnoremap <M-l> <C-w>>
+
 if has('gui_running')
     map <C-f> :promptrepl<CR>
 endif
@@ -226,16 +239,6 @@ nnoremap <leader>g       :GundoToggle<CR>
 nnoremap <leader>n       :NERDTreeToggle<CR>
 nnoremap <leader>t       :TagbarToggle<CR>
 noremap <silent><Leader>/ :nohls<CR>
-
-" resize splits
-nnoremap <M-j> <C-w>-
-nnoremap <M-k> <C-w>+
-nnoremap <M-h> <C-w><
-nnoremap <M-l> <C-w>>
-
-nnoremap Y y$
-nnoremap j gj
-nnoremap k gk
 
 vmap v     <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
