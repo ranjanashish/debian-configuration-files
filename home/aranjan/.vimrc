@@ -22,6 +22,7 @@ set pastetoggle=<F10>                                   " key code that causes '
 set scrolloff=3                                         " minimum number of lines above and below cursor
 set showcmd                                             " display incomplete commands
 set synmaxcol=400                                       " maximum column to find syntax items
+set t_Co=256
 set visualbell                                          " error bells are displayed visually
 set wildmenu                                            " show autocomplete menus
 set wildignore=*.o,*~,*.pyc                             " files matching these patterns are not completed
@@ -86,7 +87,7 @@ if has('gui_running')
     set guioptions-=r  " no right-hand scrollbar
     set guioptions-=L  " no left-hand scrollbar
     if has('gui_gtk3') || has('gui_gtk2')
-        set guifont=Inconsolata\ for\ Powerline\ 14
+        set guifont=InconsolataForPowerline\ Nerd\ Font\ Medium\ 14
     elseif has("gui_macvim")
         set guifont=Menlo\ Regular:h14
     elseif has("gui_win32")
@@ -110,43 +111,46 @@ Plug 'vim-airline/vim-airline'
 " programming
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'} " requires python
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'                     " requires python
-Plug 'scrooloose/syntastic'
-Plug 'scrooloose/nerdcommenter'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-Plug 'tpope/vim-fugitive'
-Plug 'gregsexton/gitv'
 Plug 'airblade/vim-gitgutter'
+Plug 'gregsexton/gitv'
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-fugitive'
+Plug 'w0rp/ale'
 Plug 'Yggdroot/indentLine'
-Plug 'vim-scripts/DoxygenToolkit.vim', {'for': 'cpp'}
-Plug 'rstacruz/sparkup',               {'for': 'html', 'rtp': 'vim/'}
+" programming - on demand
+Plug 'derekwyatt/vim-scala',           {'for': 'scala'}
 Plug 'mitsuhiko/vim-jinja',            {'for': 'html'}
 Plug 'python-rope/ropevim',            {'for': 'python'}                " requires python
+Plug 'rstacruz/sparkup',               {'for': 'html', 'rtp': 'vim/'}
 Plug 'rust-lang/rust.vim',             {'for': 'rust'}
-Plug 'derekwyatt/vim-scala',           {'for': 'scala'}
+Plug 'vim-scripts/DoxygenToolkit.vim', {'for': 'cpp'}
 " syntax
 Plug 'vim-scripts/Arduino-syntax-file'
 " utility
-Plug 'mhinz/vim-Startify'
-Plug 'Raimondi/delimitMate'
-Plug 'vim-scripts/Align'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeFromBookmark']}
+Plug 'Raimondi/delimitMate'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'junegunn/limelight.vim', {'on': 'Limelight'}
+Plug 'junegunn/vim-easy-align'
+Plug 'mhinz/vim-Startify'
+Plug 'rking/ag.vim'
+Plug 'sjl/gundo.vim'                                                    " requires python
+Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-Plug 'terryma/vim-expand-region'
-Plug 'rking/ag.vim'
-Plug 'xolox/vim-misc' | Plug 'xolox/vim-session'
-Plug 'sjl/gundo.vim'                                                    " requires python
-Plug 'junegunn/limelight.vim', {'on': 'Limelight'}
 Plug 'wellle/targets.vim'
+Plug 'xolox/vim-misc' | Plug 'xolox/vim-session'
 if has('unix')
     Plug 'trotter/autojump.vim'
 endif
+
+" Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -175,32 +179,6 @@ let g:session_autosave = 'no'
 
 " startify
 let g:startify_list_order = [['   Sessions'], 'sessions', ['   Bookmarks'], 'bookmarks', ['   MRU'], 'files']
-
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-
-"let g:syntastic_error_symbol = '✗'
-"let g:syntastic_style_error_symbol = '⁉️'
-"let g:syntastic_warning_symbol = '⚠'
-"let g:syntastic_style_warning_symbol = '≈≈'
-
-let g:syntastic_cpp_compiler_options = ' -std=c++11'
-
-let g:syntastic_python_python_exec = '/usr/bin/python3'
-let g:syntastic_python_pylint_exe = 'pylint3'
-let g:syntastic_python_checkers = ['python', 'flake8', 'mypy']
-
-"highlight link SyntasticErrorSign SignColumn
-"highlight link SyntasticWarningSign SignColumn
-"highlight link SyntasticStyleErrorSign SignColumn
-"highlight link SyntasticStyleWarningSign SignColumn
 
 " ultisnips
 let g:UltiSnipsExpandTrigger="<c-j>"
@@ -244,3 +222,9 @@ vmap v     <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 nmap gh    <Plug>GitGutterNextHunk
 nmap gH    <Plug>GitGutterPrevHunk
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
